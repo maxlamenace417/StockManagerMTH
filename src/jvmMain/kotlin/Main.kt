@@ -4,24 +4,18 @@ import Components.LeftMenu
 import Components.MainZone
 import Session.Installer
 import Session.Session
-import Storage.BuyTransaction
-import Storage.DividendTransaction
-import Storage.GenericTransactionWithInfoList
-import Storage.SellTransaction
 import Translation.AllTexts
 import Translation.Translator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.desktop.ui.tooling.preview.Preview
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.material.Text
+import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import java.util.*
@@ -31,19 +25,17 @@ import java.util.*
 fun App(session:Session) {
     var sessionRemember by remember{ mutableStateOf(session) }
     MaterialTheme {
-        Column {
-            Row {
-                LeftMenu.MainPart(sessionRemember)
-                MainZone.MainPart(sessionRemember)
+        Column(modifier = Modifier.fillMaxHeight()) {
+            Row(modifier = Modifier.defaultMinSize(10.dp)) {
+                LeftMenu.MainPart(sessionRemember) {
+                    sessionRemember = it
+                }
+                MainZone.MainPart(sessionRemember){
+                    sessionRemember = it
+                }
             }
-            Spacer(modifier = Modifier.weight(1f))
             BottomInfoZone.MainPart(sessionRemember)
         }
-        /*Button(onClick = {
-            text = "Hello, Desktop!"
-        }) {
-            Text(text)
-        }*/
     }
 }
 
@@ -52,11 +44,13 @@ fun main() = application {
     var Installer = Installer()
     Installer.Install()
 
+    //Load previous Session
+    //TODO()
+
     var session = Session()
-    var sessionRemember by remember{ mutableStateOf(session) }
+
 
     Window(onCloseRequest = ::exitApplication, title = Translator.Translate(session.applicationParameters.language, AllTexts.Stock_Manager_MTH)) {
-
-        App(sessionRemember)
+        App(session)
     }
 }

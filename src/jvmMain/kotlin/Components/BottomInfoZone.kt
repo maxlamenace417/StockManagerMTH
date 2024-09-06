@@ -18,7 +18,7 @@ class BottomInfoZone {
         @Preview
         fun MainPart(session: Session){
             Row{
-                Text(Translator.Translate(session.applicationParameters.language,AllTexts.Stock_Manager_MTH))
+                Text(session.bottomMessage)
             }
         }
     }
