@@ -1,7 +1,7 @@
 package Components
 
 import Session.ProjectCreator
-import Session.Session
+import Session.SessionState
 import Translation.AllTexts
 import Translation.Translator
 import androidx.compose.desktop.ui.tooling.preview.Preview
@@ -27,17 +27,17 @@ class ProjectOverview {
     companion object {
         @Composable
         @Preview
-        fun MainPart(session: Session, endCreate: (Session) -> Unit) {
-            Column{
-                Row{
+        fun MainPart(session: SessionState) {
+            Column {
+                Row {
                     Button(onClick = {
                         //TODO()
-                    }){
+                    }) {
                         Text(Translator.Translate(session.applicationParameters.language, AllTexts.Create_Portfolio))
                     }
                 }
-                for(i in 0..session.project.portfolios.size-1){
-                    Row{
+                for (i in 0..session.project.portfolios.size - 1) {
+                    Row {
                         Text(session.project.portfolios[i].name)
                     }
                 }

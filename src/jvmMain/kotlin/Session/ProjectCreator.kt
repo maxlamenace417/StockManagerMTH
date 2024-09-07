@@ -6,17 +6,17 @@ import java.io.File
 
 class ProjectCreator {
     companion object{
-        fun CreateProject(directoryPathToSave : String, name:String, session:Session) : String{
+        fun CreateProject(directoryPathToSave : String, name:String, sessionState:SessionState) : String{
             //Check if project name is valid
             if(name.isNullOrEmpty()){
-                session.bottomMessage = Translator.Translate(session.applicationParameters.language, AllTexts.Invalid_Project_Name)
+                sessionState.bottomMessage = Translator.Translate(sessionState.applicationParameters.language, AllTexts.Invalid_Project_Name)
                 return ""
             }
 
             //Check if directoryPathToSave exists
             val directory = File(directoryPathToSave)
             if(!(directory.exists() && directory.isDirectory)){
-                session.bottomMessage = Translator.Translate(session.applicationParameters.language, AllTexts.Invalid_Directory_Path)+directoryPathToSave
+                sessionState.bottomMessage = Translator.Translate(sessionState.applicationParameters.language, AllTexts.Invalid_Directory_Path)+directoryPathToSave
                 return ""
             }
 
@@ -26,10 +26,10 @@ class ProjectCreator {
             if(!(directory2.exists() && directory2.isDirectory)) {
                 //Creation du dossier projet
                 File(projectDirectoryAbsolutePath).mkdirs()
-                session.bottomMessage = Translator.Translate(session.applicationParameters.language, AllTexts.Project_Created_Successfully)+projectDirectoryAbsolutePath
+                sessionState.bottomMessage = Translator.Translate(sessionState.applicationParameters.language, AllTexts.Project_Created_Successfully)+projectDirectoryAbsolutePath
                 return projectDirectoryAbsolutePath
             }else{
-                session.bottomMessage = Translator.Translate(session.applicationParameters.language, AllTexts.Project_Already_Exists)+projectDirectoryAbsolutePath
+                sessionState.bottomMessage = Translator.Translate(sessionState.applicationParameters.language, AllTexts.Project_Already_Exists)+projectDirectoryAbsolutePath
                 return ""
             }
             return ""

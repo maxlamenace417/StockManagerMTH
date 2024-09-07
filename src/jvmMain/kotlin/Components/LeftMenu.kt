@@ -1,6 +1,7 @@
 package Components
 
-import Session.Session
+import Session.SessionState
+import SessionStateUtil
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
@@ -12,13 +13,13 @@ class LeftMenu {
     companion object {
         @Composable
         @Preview
-        fun MainPart(session: Session, displayScreenToDisplay: (Session) -> Unit){
-            Column{
-                var displaySaveButton= !session.applicationParameters.lastStartedProjectPath.isNullOrEmpty()
+        fun MainPart(sessionState: SessionState) {
+            Column {
+                var displaySaveButton = sessionState.applicationParameters.lastStartedProjectPath.isNotEmpty()
                 if(displaySaveButton) {
                     Button(onClick = {
-                        var newSession = session.copy(mainZoneScreenToDisplay = MainZoneScreenToDisplay.CurrentProject)
-                        displayScreenToDisplay(newSession)
+                        var newSession = sessionState.copy(mainZoneScreenToDisplay = MainZoneScreenToDisplay.CurrentProject)
+                        SessionStateUtil.setSessionStateValue(newSession)
                     }) {
                         Image(
                             painter = painterResource("img/folder.png"),
@@ -27,25 +28,27 @@ class LeftMenu {
                     }
                 }
                 Button(onClick = {
-                    var newSession = session.copy(mainZoneScreenToDisplay = MainZoneScreenToDisplay.NewProject)
-                    displayScreenToDisplay(newSession)
-                }){
-                    Image(painter = painterResource("img/folder_new.png"),
+                    val newSession = sessionState.copy(mainZoneScreenToDisplay = MainZoneScreenToDisplay.NewProject)
+                    SessionStateUtil.setSessionStateValue(newSession)
+                }) {
+                    Image(
+                        painter = painterResource("img/folder_new.png"),
                         contentDescription = ""
                     )
                 }
                 Button(onClick = {
-                    var newSession = session.copy(mainZoneScreenToDisplay = MainZoneScreenToDisplay.Nothing)
-                    displayScreenToDisplay(newSession)
-                }){
-                    Image(painter = painterResource("img/folder_load.png"),
+                    val newSession = sessionState.copy(mainZoneScreenToDisplay = MainZoneScreenToDisplay.Nothing)
+                    SessionStateUtil.setSessionStateValue(newSession)
+                }) {
+                    Image(
+                        painter = painterResource("img/folder_load.png"),
                         contentDescription = ""
                     )
                 }
-                if(displaySaveButton) {
+                if (displaySaveButton) {
                     Button(onClick = {
-                        var newSession = session.copy(mainZoneScreenToDisplay = MainZoneScreenToDisplay.Nothing)
-                        displayScreenToDisplay(newSession)
+                        val newSession = sessionState.copy(mainZoneScreenToDisplay = MainZoneScreenToDisplay.Nothing)
+                        SessionStateUtil.setSessionStateValue(newSession)
                     }) {
                         Image(
                             painter = painterResource("img/folder_save.png"),
@@ -53,9 +56,11 @@ class LeftMenu {
                         )
                     }
                 }
-                Button(onClick = { displaySaveButton =!displaySaveButton
-                }){
-                    Image(painter = painterResource("img/gear.png"),
+                Button(onClick = {
+                    displaySaveButton = !displaySaveButton
+                }) {
+                    Image(
+                        painter = painterResource("img/gear.png"),
                         contentDescription = ""
                     )
                 }

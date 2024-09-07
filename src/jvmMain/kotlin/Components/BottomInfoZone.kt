@@ -1,25 +1,18 @@
 package Components
 
-import Session.Session
-import Translation.AllTexts
-import Translation.Translator
+import Session.SessionState
 import androidx.compose.desktop.ui.tooling.preview.Preview
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.Modifier
 
-class BottomInfoZone {
-    companion object {
-        @Composable
-        @Preview
-        fun MainPart(session: Session){
-            Row{
-                Text(session.bottomMessage)
-            }
-        }
+
+@Composable
+@Preview
+fun BottomInfoZone(modifier: Modifier = Modifier) {
+    val sessionState = SessionStateUtil.getSessionStateValue()
+    Row(modifier) {
+        Text(sessionState.bottomMessage)
     }
 }
