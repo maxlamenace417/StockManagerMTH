@@ -12,11 +12,15 @@ class TranslatorFR : TranslatorFactory() {
             AllTexts.New_Project_Directory_Path -> return("Chemin du dossier contenant le projet")
             AllTexts.Select -> return ("Choisir")
             AllTexts.Validate -> return ("Valider")
-            AllTexts.Invalid_Directory_Path -> return ("Chemin du dossier invalide: ")
-            AllTexts.Project_Already_Exists -> return ("Le projet existe déjà: ")
-            AllTexts.Project_Created_Successfully -> return ("Projet créé: ")
+            AllTexts.Project_Name -> return ("Nom du projet")
+            AllTexts.Invalid_Directory_Path -> return ("Chemin du dossier invalide")
+            AllTexts.Project_Already_Exists -> return ("Le projet existe déjà")
+            AllTexts.Project_Created_Successfully -> return ("Projet créé")
             AllTexts.Invalid_Project_Name -> return ("Nom de projet vide")
             AllTexts.Create_Portfolio -> return ("Créer un portefeuille")
+            AllTexts.Navigating_To_New_Project_Tab -> return ("Ouverture de l'onglet de création de projet")
+            AllTexts.Project_Saved -> return ("Projet sauvegardé")
+            AllTexts.View_Project -> return ("Ouverture de l'onglet de visualisation de projet")
             else -> return "LABEL KO: "+toTranslate
         }
     }

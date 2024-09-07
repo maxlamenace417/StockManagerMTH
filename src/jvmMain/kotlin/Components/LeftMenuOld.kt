@@ -1,5 +1,6 @@
 package Components
 
+import AppClasses.ApplicationContent.MainZone.MainZoneScreenToDisplay
 import Session.SessionState
 import SessionStateUtil
 import androidx.compose.desktop.ui.tooling.preview.Preview
@@ -9,7 +10,7 @@ import androidx.compose.material.Button
 import androidx.compose.runtime.*
 import androidx.compose.ui.res.painterResource
 
-class LeftMenu {
+class LeftMenuOld {
     companion object {
         @Composable
         @Preview
@@ -18,7 +19,7 @@ class LeftMenu {
                 var displaySaveButton = sessionState.applicationParameters.lastStartedProjectPath.isNotEmpty()
                 if(displaySaveButton) {
                     Button(onClick = {
-                        var newSession = sessionState.copy(mainZoneScreenToDisplay = MainZoneScreenToDisplay.CurrentProject)
+                        var newSession = sessionState.copy(mainZoneScreenToDisplay = MainZoneScreenToDisplay.ViewProject)
                         SessionStateUtil.setSessionStateValue(newSession)
                     }) {
                         Image(

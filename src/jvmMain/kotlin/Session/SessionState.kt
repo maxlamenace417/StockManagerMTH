@@ -1,6 +1,6 @@
 package Session
 
-import Components.MainZoneScreenToDisplay
+import AppClasses.ApplicationContent.MainZone.MainZoneScreenToDisplay
 import Storage.Project
 
 data class SessionState(var applicationParameters : ApplicationParameters = ApplicationParameters(),

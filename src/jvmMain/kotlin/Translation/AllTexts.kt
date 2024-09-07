@@ -14,5 +14,8 @@ enum class AllTexts {
     Project_Already_Exists,
     Project_Created_Successfully,
     Invalid_Project_Name,
-    Create_Portfolio
+    Create_Portfolio,
+    Navigating_To_New_Project_Tab,
+    Project_Saved,
+    View_Project
 }

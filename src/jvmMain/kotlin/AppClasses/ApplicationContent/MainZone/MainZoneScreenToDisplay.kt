@@ -1,7 +1,7 @@
-package Components
+package AppClasses.ApplicationContent.MainZone
 
 enum class MainZoneScreenToDisplay {
     Nothing,
     NewProject,
-    CurrentProject
+    ViewProject
 }

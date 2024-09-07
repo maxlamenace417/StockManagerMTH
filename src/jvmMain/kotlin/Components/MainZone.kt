@@ -1,5 +1,6 @@
 package Components
 
+import AppClasses.ApplicationContent.MainZone.MainZoneScreenToDisplay
 import Session.SessionState
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.background
@@ -19,7 +20,7 @@ class MainZone {
                     MainZoneScreenToDisplay.NewProject ->{
                         NewProject.MainPart(sessionState)
                     }
-                    MainZoneScreenToDisplay.CurrentProject ->{
+                    MainZoneScreenToDisplay.ViewProject ->{
                         ProjectOverview.MainPart(sessionState)
                     }
                     else ->{
