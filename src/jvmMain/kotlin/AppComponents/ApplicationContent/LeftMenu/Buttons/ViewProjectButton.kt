@@ -27,7 +27,7 @@ fun ViewProjectButton(modifier: Modifier = Modifier) {
                     text = Translator.Translate(
                         applicationState.language,
                         AllTexts.View_Project
-                    ) + ": " + applicationState.currentProjectPath
+                    )
                 )
             )
         }) {

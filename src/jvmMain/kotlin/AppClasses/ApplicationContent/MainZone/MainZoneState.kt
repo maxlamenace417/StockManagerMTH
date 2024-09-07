@@ -1,4 +1,4 @@
 package AppClasses.ApplicationContent.MainZone
 
-data class MainZoneState(var mainZoneScreenToDisplay: MainZoneScreenToDisplay = MainZoneScreenToDisplay.Nothing) {
+data class MainZoneState(val mainZoneScreenToDisplay: MainZoneScreenToDisplay = MainZoneScreenToDisplay.Nothing) {
 }

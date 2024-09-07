@@ -5,6 +5,7 @@ import AppClasses.ApplicationContent.MainZone.MainZoneScreenToDisplay
 import AppClasses.ApplicationContent.MainZone.MainZoneStateUtil
 import AppClasses.ApplicationStateUtil
 import Session.SessionState
+import Storage.Project
 import Translation.AllTexts
 import Translation.Translator
 import java.io.File
@@ -41,7 +42,7 @@ class ProjectUtils {
                     applicationState.language,
                     AllTexts.Project_Created_Successfully
                 ) + ": " + projectDirectoryAbsolutePath))
-                ApplicationStateUtil.setApplicationStateValue(applicationState.copy(currentProjectPath = projectDirectoryAbsolutePath, title = name +" "+applicationState.title))
+                ApplicationStateUtil.setApplicationStateValue(applicationState.copy(currentProjectPath = projectDirectoryAbsolutePath, title = name +" "+applicationState.title, project = Project()))
                 MainZoneStateUtil.setMainZoneStateValue(mainZoneState.copy(mainZoneScreenToDisplay = MainZoneScreenToDisplay.ViewProject))
             } else {
                 BottomBarStateUtil.setBottomBarStateValue(bottomBarState.copy(text=Translator.Translate(
