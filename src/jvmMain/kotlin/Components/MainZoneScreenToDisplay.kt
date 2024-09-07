@@ -2,5 +2,6 @@ package Components
 
 enum class MainZoneScreenToDisplay {
     Nothing,
-    NewProject
+    NewProject,
+    CurrentProject
 }

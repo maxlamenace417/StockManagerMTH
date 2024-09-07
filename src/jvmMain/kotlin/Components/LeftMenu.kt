@@ -15,6 +15,17 @@ class LeftMenu {
         fun MainPart(session: Session, displayScreenToDisplay: (Session) -> Unit){
             Column{
                 var displaySaveButton= !session.applicationParameters.lastStartedProjectPath.isNullOrEmpty()
+                if(displaySaveButton) {
+                    Button(onClick = {
+                        var newSession = session.copy(mainZoneScreenToDisplay = MainZoneScreenToDisplay.CurrentProject)
+                        displayScreenToDisplay(newSession)
+                    }) {
+                        Image(
+                            painter = painterResource("img/folder.png"),
+                            contentDescription = ""
+                        )
+                    }
+                }
                 Button(onClick = {
                     var newSession = session.copy(mainZoneScreenToDisplay = MainZoneScreenToDisplay.NewProject)
                     displayScreenToDisplay(newSession)

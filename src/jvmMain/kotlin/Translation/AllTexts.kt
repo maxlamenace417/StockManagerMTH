@@ -13,5 +13,6 @@ enum class AllTexts {
     Invalid_Directory_Path,
     Project_Already_Exists,
     Project_Created_Successfully,
-    Invalid_Project_Name
+    Invalid_Project_Name,
+    Create_Portfolio
 }

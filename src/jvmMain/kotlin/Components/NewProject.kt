@@ -23,6 +23,9 @@ import java.awt.Frame
 import javax.swing.JFileChooser
 import javax.swing.plaf.FileChooserUI
 
+/*
+Screen to create new project
+ */
 class NewProject {
     companion object {
         @Composable
@@ -71,7 +74,9 @@ class NewProject {
                 }
                 Button(onClick = {
                     var tempSession = session.copy()
-                    ProjectCreator.CreateProject(projectDirectoryPathToSave.text, projectName.text, tempSession)
+                    tempSession.applicationParameters.lastStartedProjectPath = ProjectCreator.CreateProject(projectDirectoryPathToSave.text, projectName.text, tempSession)
+                    var temp = tempSession.applicationParameters.lastStartedProjectPath.split("\\")
+                    tempSession.project.projectName = temp[temp.size-1]
                     endCreate(tempSession.copy())
                 }){
                     Text(Translator.Translate(session.applicationParameters.language, AllTexts.Validate))

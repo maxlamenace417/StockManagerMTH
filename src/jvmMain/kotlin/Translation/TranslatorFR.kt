@@ -16,6 +16,7 @@ class TranslatorFR : TranslatorFactory() {
             AllTexts.Project_Already_Exists -> return ("Le projet existe déjà: ")
             AllTexts.Project_Created_Successfully -> return ("Projet créé: ")
             AllTexts.Invalid_Project_Name -> return ("Nom de projet vide")
+            AllTexts.Create_Portfolio -> return ("Créer un portefeuille")
             else -> return "LABEL KO: "+toTranslate
         }
     }

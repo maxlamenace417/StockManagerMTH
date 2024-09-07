@@ -50,7 +50,7 @@ fun main() = application {
     var session = Session()
 
 
-    Window(onCloseRequest = ::exitApplication, title = Translator.Translate(session.applicationParameters.language, AllTexts.Stock_Manager_MTH)) {
+    Window(onCloseRequest = ::exitApplication, title = session.project.projectName + Translator.Translate(session.applicationParameters.language, AllTexts.Stock_Manager_MTH)) {
         App(session)
     }
 }

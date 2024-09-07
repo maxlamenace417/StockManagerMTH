@@ -27,6 +27,12 @@ class MainZone {
                             refresh(sessionRemember)
                         }
                     }
+                    MainZoneScreenToDisplay.CurrentProject ->{
+                        ProjectOverview.MainPart(session){
+                            sessionRemember = it
+                            refresh(sessionRemember)
+                        }
+                    }
                     else ->{
 
                     }
