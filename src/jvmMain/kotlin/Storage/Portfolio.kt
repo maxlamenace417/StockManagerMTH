@@ -1,6 +1,5 @@
 package Storage
 
-class Portfolio {
-    var name : String = ""
-    var stocks : List<Stock> = mutableListOf<Stock>()
+class Portfolio(var name : String = "", var stocks : MutableList<Stock> = mutableListOf<Stock>()) {
+
 }

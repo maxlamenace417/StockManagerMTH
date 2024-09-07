@@ -3,5 +3,6 @@ package AppClasses.ApplicationContent.MainZone
 enum class MainZoneScreenToDisplay {
     Nothing,
     NewProject,
-    ViewProject
+    ViewProject,
+    CreatePortfolio
 }

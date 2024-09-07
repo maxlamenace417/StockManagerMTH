@@ -21,6 +21,11 @@ class TranslatorFR : TranslatorFactory() {
             AllTexts.Navigating_To_New_Project_Tab -> return ("Ouverture de l'onglet de création de projet")
             AllTexts.Project_Saved -> return ("Projet sauvegardé")
             AllTexts.View_Project -> return ("Ouverture de l'onglet de visualisation de projet")
+            AllTexts.Portfolio_Name_Empty -> return ("Nom du portefeuille vide")
+            AllTexts.Portfolio_Already_Exists -> return ("Le portefeuille existe déjà dans le projet")
+            AllTexts.Portfolio_Created -> return ("Portefeuille créé")
+            AllTexts.Navigating_To_Portfolio_Create_Tab -> return("Ouverture de l'onglet de création de portefeuille")
+            AllTexts.Porftolio_Name -> return("Nom du portefeuille")
             else -> return "LABEL KO: "+toTranslate
         }
     }

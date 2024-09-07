@@ -17,5 +17,10 @@ enum class AllTexts {
     Create_Portfolio,
     Navigating_To_New_Project_Tab,
     Project_Saved,
-    View_Project
+    View_Project,
+    Portfolio_Name_Empty,
+    Portfolio_Already_Exists,
+    Portfolio_Created,
+    Navigating_To_Portfolio_Create_Tab,
+    Porftolio_Name
 }
