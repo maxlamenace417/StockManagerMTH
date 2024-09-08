@@ -2,6 +2,7 @@ package AppComponents
 
 import AppClasses.ApplicationState
 import AppClasses.ApplicationStateUtil
+import AppComponents.ApplicationContent.ApplicationContent
 import AppComponents.ApplicationContent.BottomBar.BottomBar
 import AppComponents.ApplicationContent.LeftMenu.LeftMenu
 import AppComponents.ApplicationContent.MainZone.MainZone
@@ -19,11 +20,5 @@ import androidx.compose.ui.window.application
 @Composable
 @Preview
 fun Application(modifier: Modifier = Modifier){
-    Column {
-        Row {
-            LeftMenu()
-            MainZone()
-        }
-        BottomBar()
-    }
+    ApplicationContent()
 }

@@ -4,7 +4,6 @@ import AppClasses.ApplicationContent.BottomBar.BottomBarStateUtil
 import AppClasses.ApplicationContent.MainZone.MainZoneScreenToDisplay
 import AppClasses.ApplicationContent.MainZone.MainZoneStateUtil
 import AppClasses.ApplicationStateUtil
-import Session.SessionState
 import Storage.Project
 import Translation.AllTexts
 import Translation.Translator
@@ -12,7 +11,7 @@ import java.io.File
 
 class ProjectUtils {
     companion object {
-        fun CreateProject(directoryPathToSave: String, name: String) {
+        fun createProject(directoryPathToSave: String, name: String) {
             var mainZoneState = MainZoneStateUtil.getMainZoneStateValue()
             val applicationState = ApplicationStateUtil.getApplicationStateValue()
             val bottomBarState = BottomBarStateUtil.getBottomBarStateValue()
@@ -53,5 +52,9 @@ class ProjectUtils {
             }
             return
         }
+    }
+
+    fun saveProject(){
+
     }
 }

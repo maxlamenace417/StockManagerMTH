@@ -4,6 +4,7 @@ import AppClasses.ApplicationContent.BottomBar.BottomBarStateUtil
 import AppComponents.ApplicationContent.LeftMenu.Buttons.NewProjectButton
 import AppComponents.ApplicationContent.LeftMenu.Buttons.SaveProjectButton
 import AppComponents.ApplicationContent.LeftMenu.Buttons.ViewProjectButton
+import Components.grayBoxStyle
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -14,7 +15,7 @@ import androidx.compose.ui.Modifier
 @Composable
 @Preview
 fun LeftMenu(modifier: Modifier = Modifier){
-    Column{
+    Column(modifier){
         ViewProjectButton()
         SaveProjectButton()
         NewProjectButton()

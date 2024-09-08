@@ -3,7 +3,7 @@ package Translation
 class TranslatorFR : TranslatorFactory() {
     override var language: AvailableLanguages = AvailableLanguages.FR
 
-    override fun Translate(toTranslate: AllTexts): String {
+    override fun translate(toTranslate: AllTexts): String {
         when(toTranslate){
             AllTexts.Stock_Manager_MTH -> return ("Gestionnaire de bourse @MTH")
             AllTexts.New_Project -> return ("Nouveau projet")
