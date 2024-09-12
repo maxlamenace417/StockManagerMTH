@@ -4,5 +4,7 @@ enum class MainZoneScreenToDisplay {
     Nothing,
     NewProject,
     ViewProject,
-    CreatePortfolio
+    CreatePortfolio,
+    ViewPortfolio,
+    CreateStock
 }

@@ -6,6 +6,7 @@ import AppClasses.ApplicationContent.MainZone.MainZoneStateUtil
 import AppComponents.ApplicationContent.MainZone.CreatePortfolioTab.CreatePortfolioTab
 import AppComponents.ApplicationContent.MainZone.EmptyViewTab.EmptyView
 import AppComponents.ApplicationContent.MainZone.NewProjectTab.NewProjectTab
+import AppComponents.ApplicationContent.MainZone.ViewPortfolioTab.ViewPortfolioTab
 import AppComponents.ApplicationContent.MainZone.ViewProjectTab.ViewProjectTab
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.Row
@@ -26,6 +27,9 @@ fun MainZone(modifier: Modifier = Modifier){
         }
         MainZoneScreenToDisplay.CreatePortfolio -> {
             CreatePortfolioTab(modifier)
+        }
+        MainZoneScreenToDisplay.ViewPortfolio -> {
+            ViewPortfolioTab(modifier)
         }
         else -> {
             EmptyView(modifier)

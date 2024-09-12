@@ -25,5 +25,8 @@ enum class AllTexts {
     Porftolio_Name,
     Select_Valid_File,
     Project_Loaded,
-    Project_Closed
+    Project_Closed,
+    Navigating_To_Portfolio_View_Tab,
+    Navigating_To_Stock_Create_Tab,
+    Create_Stock
 }

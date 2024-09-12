@@ -29,6 +29,9 @@ class TranslatorFR : TranslatorFactory() {
             AllTexts.Select_Valid_File -> return("Veuillez choisir un fichier valide")
             AllTexts.Project_Loaded -> return("Projet chargé")
             AllTexts.Project_Closed -> return("Projet fermé")
+            AllTexts.Navigating_To_Portfolio_View_Tab -> return("Ouverture du portefeuille")
+            AllTexts.Navigating_To_Stock_Create_Tab -> return ("Ouverture de l'onglet de création d'action")
+            AllTexts.Create_Stock -> return ("Ajouter une action") 
             else -> return "LABEL KO: "+toTranslate
         }
     }
