@@ -6,23 +6,22 @@ import AppClasses.ApplicationContent.MainZone.MainZoneStateUtil
 import AppClasses.ApplicationContent.MainZone.NavigationStateUtil
 import AppClasses.ApplicationStateUtil
 import Components.grayBoxStyle
-import Storage.Project
 import Translation.AllTexts
 import Translation.Translator
 import androidx.compose.desktop.ui.tooling.preview.Preview
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.gestures.scrollable
-import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.*
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 
@@ -53,7 +52,9 @@ fun ViewProjectTab(modifier: Modifier = Modifier){
         Column(Modifier.verticalScroll(rememberScrollState())) {
             for (i in 0..applicationState.project.portfolios.size - 1) {
                 //TODO() Portfolio List
-                Row(Modifier.padding(bottom = 5.dp).grayBoxStyle().fillMaxWidth()) {
+                val interactionSource = remember{ MutableInteractionSource()}
+                val hoverState = interactionSource.collectIsHoveredAsState()
+                Row(Modifier.padding(bottom = 5.dp).grayBoxStyle(backgroundColor = if(hoverState.value) {Color.White} else{Color.Gray}).fillMaxWidth().hoverable(interactionSource)) {
                     Image(
                         painter = painterResource("img/portfolio.png"),
                         contentDescription = ""

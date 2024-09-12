@@ -9,5 +9,5 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
-fun Modifier.grayBoxStyle(padding: Dp = 5.dp): Modifier =
-    this.background(Color.Gray).border(BorderStroke(1.dp, Color.Black)).padding(padding)
+fun Modifier.grayBoxStyle(padding: Dp = 5.dp, backgroundColor: Color = Color.Gray): Modifier =
+    this.background(backgroundColor).border(BorderStroke(1.dp, Color.Black)).padding(padding)
