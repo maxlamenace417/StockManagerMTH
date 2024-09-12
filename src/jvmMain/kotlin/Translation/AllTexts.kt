@@ -22,5 +22,8 @@ enum class AllTexts {
     Portfolio_Already_Exists,
     Portfolio_Created,
     Navigating_To_Portfolio_Create_Tab,
-    Porftolio_Name
+    Porftolio_Name,
+    Select_Valid_File,
+    Project_Loaded,
+    Project_Closed
 }

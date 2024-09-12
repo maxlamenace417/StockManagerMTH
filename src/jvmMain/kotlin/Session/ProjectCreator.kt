@@ -2,7 +2,9 @@ package Session
 
 import Translation.AllTexts
 import Translation.Translator
+import com.google.gson.GsonBuilder
 import java.io.File
+import java.io.FileWriter
 
 class ProjectCreator {
     companion object{
@@ -20,16 +22,20 @@ class ProjectCreator {
                 return ""
             }
 
-            //Check if project directory already exists
-            var projectDirectoryAbsolutePath = directoryPathToSave+"\\"+name+".mth"
-            var directory2 = File(projectDirectoryAbsolutePath)
-            if(!(directory2.exists() && directory2.isDirectory)) {
-                //Creation du dossier projet
-                File(projectDirectoryAbsolutePath).mkdirs()
-                sessionState.bottomMessage = Translator.Translate(sessionState.applicationParameters.language, AllTexts.Project_Created_Successfully)+projectDirectoryAbsolutePath
-                return projectDirectoryAbsolutePath
+            //Check if project json already exists
+            var projectJSONAbsolutePath = directoryPathToSave+"\\"+name+".json"
+            var file = File(projectJSONAbsolutePath)
+            if(!(file.exists() && file.isFile)) {
+                //Creation du json projet
+                var gsonBuilder = GsonBuilder().setPrettyPrinting().create()
+                var jsonString = gsonBuilder.toJson(sessionState.project)
+                var fileWriter = FileWriter(file)
+                fileWriter.write(jsonString)
+                fileWriter.close()
+                sessionState.bottomMessage = Translator.Translate(sessionState.applicationParameters.language, AllTexts.Project_Created_Successfully)+projectJSONAbsolutePath
+                return projectJSONAbsolutePath
             }else{
-                sessionState.bottomMessage = Translator.Translate(sessionState.applicationParameters.language, AllTexts.Project_Already_Exists)+projectDirectoryAbsolutePath
+                sessionState.bottomMessage = Translator.Translate(sessionState.applicationParameters.language, AllTexts.Project_Already_Exists)+projectJSONAbsolutePath
                 return ""
             }
             return ""

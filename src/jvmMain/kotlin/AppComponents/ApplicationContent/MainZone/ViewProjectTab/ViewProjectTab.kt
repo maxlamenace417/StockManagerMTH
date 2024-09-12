@@ -4,11 +4,17 @@ import AppClasses.ApplicationContent.BottomBar.BottomBarStateUtil
 import AppClasses.ApplicationContent.MainZone.MainZoneScreenToDisplay
 import AppClasses.ApplicationContent.MainZone.MainZoneStateUtil
 import AppClasses.ApplicationStateUtil
+import Components.grayBoxStyle
 import Translation.AllTexts
 import Translation.Translator
 import androidx.compose.desktop.ui.tooling.preview.Preview
+import androidx.compose.foundation.gestures.scrollable
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -20,7 +26,7 @@ fun ViewProjectTab(modifier: Modifier = Modifier){
     var applicationState = ApplicationStateUtil.getApplicationStateValue()
     val mainZoneState = MainZoneStateUtil.getMainZoneStateValue()
     val bottomBarState = BottomBarStateUtil.getBottomBarStateValue()
-    Column{
+    Column(modifier){
         Row{
             Button(onClick = {
                 //Create a portfolio
@@ -37,10 +43,12 @@ fun ViewProjectTab(modifier: Modifier = Modifier){
                 Text(Translator.Translate(applicationState.language, AllTexts.Create_Portfolio))
             }
         }
-        for(i in 0..applicationState.project.portfolios.size-1){
-            //TODO() Portfolio List
-            Row{
-                Text(applicationState.project.portfolios[i].name)
+        Column(Modifier.verticalScroll(rememberScrollState())) {
+            for (i in 0..applicationState.project.portfolios.size - 1) {
+                //TODO() Portfolio List
+                Row(Modifier.grayBoxStyle().fillMaxWidth()) {
+                    Text(applicationState.project.portfolios[i].name)
+                }
             }
         }
     }

@@ -4,6 +4,7 @@ import AppClasses.ApplicationContent.BottomBar.BottomBarStateUtil
 import AppClasses.ApplicationContent.MainZone.MainZoneScreenToDisplay
 import AppClasses.ApplicationContent.MainZone.MainZoneStateUtil
 import AppComponents.ApplicationContent.MainZone.CreatePortfolioTab.CreatePortfolioTab
+import AppComponents.ApplicationContent.MainZone.EmptyViewTab.EmptyView
 import AppComponents.ApplicationContent.MainZone.NewProjectTab.NewProjectTab
 import AppComponents.ApplicationContent.MainZone.ViewProjectTab.ViewProjectTab
 import androidx.compose.desktop.ui.tooling.preview.Preview
@@ -18,16 +19,16 @@ fun MainZone(modifier: Modifier = Modifier){
     val mainZoneState = MainZoneStateUtil.getMainZoneStateValue()
     when(mainZoneState.mainZoneScreenToDisplay){
         MainZoneScreenToDisplay.NewProject -> {
-            NewProjectTab()
+            NewProjectTab(modifier)
         }
         MainZoneScreenToDisplay.ViewProject -> {
-            ViewProjectTab()
+            ViewProjectTab(modifier)
         }
         MainZoneScreenToDisplay.CreatePortfolio -> {
-            CreatePortfolioTab()
+            CreatePortfolioTab(modifier)
         }
         else -> {
-
+            EmptyView(modifier)
         }
     }
 }

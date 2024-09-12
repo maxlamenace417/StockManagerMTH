@@ -26,6 +26,9 @@ class TranslatorFR : TranslatorFactory() {
             AllTexts.Portfolio_Created -> return ("Portefeuille créé")
             AllTexts.Navigating_To_Portfolio_Create_Tab -> return("Ouverture de l'onglet de création de portefeuille")
             AllTexts.Porftolio_Name -> return("Nom du portefeuille")
+            AllTexts.Select_Valid_File -> return("Veuillez choisir un fichier valide")
+            AllTexts.Project_Loaded -> return("Projet chargé")
+            AllTexts.Project_Closed -> return("Projet fermé")
             else -> return "LABEL KO: "+toTranslate
         }
     }

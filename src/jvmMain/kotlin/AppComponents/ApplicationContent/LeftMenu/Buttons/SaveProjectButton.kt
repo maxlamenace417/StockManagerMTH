@@ -6,6 +6,7 @@ import AppClasses.ApplicationContent.MainZone.MainZoneStateUtil
 import AppClasses.ApplicationStateUtil
 import Translation.AllTexts
 import Translation.Translator
+import Utils.ProjectUtils
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.Image
 import androidx.compose.material.Button
@@ -20,15 +21,7 @@ fun SaveProjectButton(modifier: Modifier = Modifier) {
     val applicationState = ApplicationStateUtil.getApplicationStateValue()
     if (!applicationState.currentProjectPath.isEmpty()) {
         Button(onClick = {
-            //TODO() Do Project save
-            BottomBarStateUtil.setBottomBarStateValue(
-                bottomBarState.copy(
-                    text = Translator.Translate(
-                        applicationState.language,
-                        AllTexts.Project_Saved
-                    ) + ": " + applicationState.currentProjectPath
-                )
-            )
+            ProjectUtils.saveProject()
         }) {
             Image(
                 painter = painterResource("img/folder_save.png"),

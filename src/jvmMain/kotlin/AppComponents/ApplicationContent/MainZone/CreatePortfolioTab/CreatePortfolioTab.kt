@@ -24,7 +24,7 @@ fun CreatePortfolioTab(modifier: Modifier = Modifier) {
     var portfolioName by remember { mutableStateOf(TextFieldValue("")) }
     val bottomBarState = BottomBarStateUtil.getBottomBarStateValue()
     val mainZoneState = MainZoneStateUtil.getMainZoneStateValue()
-    Column {
+    Column(modifier) {
         Row {
             Text(
                 Translator.Translate(

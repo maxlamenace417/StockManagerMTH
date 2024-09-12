@@ -7,12 +7,51 @@ import AppClasses.ApplicationStateUtil
 import Storage.Project
 import Translation.AllTexts
 import Translation.Translator
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import java.io.File
+import java.io.FileWriter
 
 class ProjectUtils {
     companion object {
+        fun loadProject(fileToLoadPath: String, name:String){
+            val applicationState = ApplicationStateUtil.getApplicationStateValue()
+            val bottomBarState = BottomBarStateUtil.getBottomBarStateValue()
+            val mainZoneState = MainZoneStateUtil.getMainZoneStateValue()
+            try{
+                val text = File(fileToLoadPath).readText()
+                val gson = Gson()
+                val project = gson.fromJson(text, Project::class.java)
+                ApplicationStateUtil.setApplicationStateValue(applicationState.copy(currentProjectPath = fileToLoadPath, project = project, title = name +" "+applicationState.title))
+                MainZoneStateUtil.setMainZoneStateValue(mainZoneState.copy(mainZoneScreenToDisplay = MainZoneScreenToDisplay.ViewProject))
+                BottomBarStateUtil.setBottomBarStateValue(bottomBarState.copy(text = Translator.Translate(applicationState.language, AllTexts.Project_Loaded)+": "+fileToLoadPath))
+            }catch(e : Exception){
+                BottomBarStateUtil.setBottomBarStateValue(bottomBarState.copy(text = Translator.Translate(applicationState.language, AllTexts.Select_Valid_File)+": "+fileToLoadPath))
+            }
+        }
+        fun saveProject(){
+            val applicationState = ApplicationStateUtil.getApplicationStateValue()
+            val bottomBarState = BottomBarStateUtil.getBottomBarStateValue()
+            var projectJSONAbsolutePath = applicationState.currentProjectPath
+            var file = File(projectJSONAbsolutePath)
+            var gsonBuilder = GsonBuilder().setPrettyPrinting().create()
+            var jsonString = gsonBuilder.toJson(applicationState.project)
+            var fileWriter = FileWriter(file)
+            fileWriter.write(jsonString)
+            fileWriter.close()
+
+
+            BottomBarStateUtil.setBottomBarStateValue(
+                bottomBarState.copy(
+                    text = Translator.Translate(
+                        applicationState.language,
+                        AllTexts.Project_Saved
+                    ) + ": " + applicationState.currentProjectPath
+                )
+            )
+        }
         fun createProject(directoryPathToSave: String, name: String) {
-            var mainZoneState = MainZoneStateUtil.getMainZoneStateValue()
+            val mainZoneState = MainZoneStateUtil.getMainZoneStateValue()
             val applicationState = ApplicationStateUtil.getApplicationStateValue()
             val bottomBarState = BottomBarStateUtil.getBottomBarStateValue()
             //Check if project name is valid
@@ -32,29 +71,30 @@ class ProjectUtils {
             }
 
             //Check if project directory already exists
-            var projectDirectoryAbsolutePath = directoryPathToSave + "\\" + name + ".mth"
-            var directory2 = File(projectDirectoryAbsolutePath)
-            if (!(directory2.exists() && directory2.isDirectory)) {
+            var projectJSONAbsolutePath = directoryPathToSave + "\\" + name + ".json"
+            var file = File(projectJSONAbsolutePath)
+            if (!(file.exists() && file.isFile)) {
                 //Creating project directory
-                File(projectDirectoryAbsolutePath).mkdirs()
+                var gsonBuilder = GsonBuilder().setPrettyPrinting().create()
+                var jsonString = gsonBuilder.toJson(applicationState.project)
+                var fileWriter = FileWriter(file)
+                fileWriter.write(jsonString)
+                fileWriter.close()
                 BottomBarStateUtil.setBottomBarStateValue(bottomBarState.copy(text=Translator.Translate(
                     applicationState.language,
                     AllTexts.Project_Created_Successfully
-                ) + ": " + projectDirectoryAbsolutePath))
-                ApplicationStateUtil.setApplicationStateValue(applicationState.copy(currentProjectPath = projectDirectoryAbsolutePath, title = name +" "+applicationState.title, project = Project()))
+                ) + ": " + projectJSONAbsolutePath))
+                ApplicationStateUtil.setApplicationStateValue(applicationState.copy(currentProjectPath = projectJSONAbsolutePath, title = name +" "+applicationState.title, project = Project(projectName = name)))
                 MainZoneStateUtil.setMainZoneStateValue(mainZoneState.copy(mainZoneScreenToDisplay = MainZoneScreenToDisplay.ViewProject))
             } else {
                 BottomBarStateUtil.setBottomBarStateValue(bottomBarState.copy(text=Translator.Translate(
                     applicationState.language,
                     AllTexts.Project_Already_Exists
-                ) + ": " + projectDirectoryAbsolutePath))
+                ) + ": " + projectJSONAbsolutePath))
                 return
             }
             return
         }
     }
 
-    fun saveProject(){
-
-    }
 }

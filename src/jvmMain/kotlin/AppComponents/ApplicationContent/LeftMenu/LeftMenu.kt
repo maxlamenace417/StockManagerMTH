@@ -1,9 +1,7 @@
 package AppComponents.ApplicationContent.LeftMenu
 
 import AppClasses.ApplicationContent.BottomBar.BottomBarStateUtil
-import AppComponents.ApplicationContent.LeftMenu.Buttons.NewProjectButton
-import AppComponents.ApplicationContent.LeftMenu.Buttons.SaveProjectButton
-import AppComponents.ApplicationContent.LeftMenu.Buttons.ViewProjectButton
+import AppComponents.ApplicationContent.LeftMenu.Buttons.*
 import Components.grayBoxStyle
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.Column
@@ -19,5 +17,7 @@ fun LeftMenu(modifier: Modifier = Modifier){
         ViewProjectButton()
         SaveProjectButton()
         NewProjectButton()
+        LoadProjectButton()
+        CloseProjectButton()
     }
 }
