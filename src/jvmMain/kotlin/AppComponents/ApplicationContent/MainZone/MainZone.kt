@@ -1,16 +1,18 @@
 package AppComponents.ApplicationContent.MainZone
 
-import AppClasses.ApplicationContent.BottomBar.BottomBarStateUtil
 import AppClasses.ApplicationContent.MainZone.MainZoneScreenToDisplay
 import AppClasses.ApplicationContent.MainZone.MainZoneStateUtil
-import AppComponents.ApplicationContent.MainZone.CreatePortfolioTab.CreatePortfolioTab
+import AppComponents.ApplicationContent.MainZone.CreateTransactionTab.CreateTransactionTab
+import AppComponents.ApplicationContent.MainZone.PortfolioTab.CreatePortfolioTab
+import AppComponents.ApplicationContent.MainZone.StockTab.CreateStockTab
+import AppComponents.ApplicationContent.MainZone.StockTab.EditStockTab
 import AppComponents.ApplicationContent.MainZone.EmptyViewTab.EmptyView
 import AppComponents.ApplicationContent.MainZone.NewProjectTab.NewProjectTab
+import AppComponents.ApplicationContent.MainZone.PortfolioTab.EditPortfolioTab
 import AppComponents.ApplicationContent.MainZone.ViewPortfolioTab.ViewPortfolioTab
 import AppComponents.ApplicationContent.MainZone.ViewProjectTab.ViewProjectTab
+import AppComponents.ApplicationContent.MainZone.ViewStockTab.ViewStockTab
 import androidx.compose.desktop.ui.tooling.preview.Preview
-import androidx.compose.foundation.layout.Row
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
@@ -30,6 +32,21 @@ fun MainZone(modifier: Modifier = Modifier){
         }
         MainZoneScreenToDisplay.ViewPortfolio -> {
             ViewPortfolioTab(modifier)
+        }
+        MainZoneScreenToDisplay.CreateStock -> {
+            CreateStockTab(modifier)
+        }
+        MainZoneScreenToDisplay.EditPortfolio -> {
+            EditPortfolioTab(modifier)
+        }
+        MainZoneScreenToDisplay.ViewStock -> {
+            ViewStockTab(modifier)
+        }
+        MainZoneScreenToDisplay.EditStock -> {
+            EditStockTab(modifier)
+        }
+        MainZoneScreenToDisplay.CreateTransaction -> {
+            CreateTransactionTab(modifier)
         }
         else -> {
             EmptyView(modifier)

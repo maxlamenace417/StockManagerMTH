@@ -12,28 +12,26 @@ import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.*
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsHoveredAsState
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 
 @Composable
 @Preview
-fun ViewProjectTab(modifier: Modifier = Modifier){
+fun ViewProjectTab(modifier: Modifier = Modifier) {
     val applicationState = ApplicationStateUtil.getApplicationStateValue()
     val navigationState = NavigationStateUtil.getNavigationStateValue()
     val mainZoneState = MainZoneStateUtil.getMainZoneStateValue()
     val bottomBarState = BottomBarStateUtil.getBottomBarStateValue()
-    Column(modifier){
-        Row{
+    Column(modifier) {
+        Row {
             Button(onClick = {
                 //Create a portfolio
                 MainZoneStateUtil.setMainZoneStateValue(mainZoneState.copy(mainZoneScreenToDisplay = MainZoneScreenToDisplay.CreatePortfolio))
@@ -45,23 +43,35 @@ fun ViewProjectTab(modifier: Modifier = Modifier){
                         )
                     )
                 )
-            }){
+            }) {
                 Text(Translator.Translate(applicationState.language, AllTexts.Create_Portfolio))
             }
         }
         Column(Modifier.verticalScroll(rememberScrollState())) {
             for (i in 0..applicationState.project.portfolios.size - 1) {
                 //TODO() Portfolio List
-                val interactionSource = remember{ MutableInteractionSource()}
+                val interactionSource = remember { MutableInteractionSource() }
                 val hoverState = interactionSource.collectIsHoveredAsState()
-                Row(Modifier.padding(bottom = 5.dp).grayBoxStyle(backgroundColor = if(hoverState.value) {Color.White} else{Color.Gray}).fillMaxWidth().hoverable(interactionSource)) {
-                    Image(
-                        painter = painterResource("img/portfolio.png"),
-                        contentDescription = ""
-                    )
-                    Row{
-                        Text(applicationState.project.portfolios[i].name, Modifier.fillMaxWidth(0.9f))
-                        Column(Modifier.fillMaxWidth()){
+                var opened by remember { mutableStateOf(false) }
+                Column(
+                    Modifier.padding(bottom = 5.dp).grayBoxStyle(
+                        backgroundColor = if (hoverState.value) {
+                            Color.White
+                        } else {
+                            Color.Gray
+                        }
+                    ).fillMaxWidth().hoverable(interactionSource).clickable(interactionSource, null, onClick = {
+                        opened = !opened
+                    })
+                ) {
+                    Row {
+                        Image(
+                            painter = painterResource("img/portfolio.png"),
+                            contentDescription = ""
+                        )
+                        Text(applicationState.project.portfolios[i].name)
+                        Spacer(Modifier.weight(1f))
+                        Row {
                             //Button to go to portfolio detail
                             Button(onClick = {
                                 NavigationStateUtil.setNavigationStateValue(navigationState.copy(currentPortfolio = applicationState.project.portfolios[i].name))
@@ -71,21 +81,69 @@ fun ViewProjectTab(modifier: Modifier = Modifier){
                                         text = Translator.Translate(
                                             applicationState.language,
                                             AllTexts.Navigating_To_Portfolio_View_Tab
-                                        ) + ": "+ applicationState.project.portfolios[i].name
+                                        ) + ": " + applicationState.project.portfolios[i].name
                                     )
                                 )
-                            }, Modifier.fillMaxWidth()) {
+                            }) {
                                 Image(
                                     painter = painterResource("img/view.png"),
                                     contentDescription = ""
                                 )
                             }
+                            //Button for portfolio edit
                             Button(onClick = {
-                            }, Modifier.fillMaxWidth()) {
+                                NavigationStateUtil.setNavigationStateValue(navigationState.copy(currentPortfolio = applicationState.project.portfolios[i].name))
+                                MainZoneStateUtil.setMainZoneStateValue(mainZoneState.copy(mainZoneScreenToDisplay = MainZoneScreenToDisplay.EditPortfolio))
+                                BottomBarStateUtil.setBottomBarStateValue(
+                                    bottomBarState.copy(
+                                        text = Translator.Translate(
+                                            applicationState.language,
+                                            AllTexts.Navigating_To_Portfolio_Edit_Tab
+                                        ) + ": " + applicationState.project.portfolios[i].name
+                                    )
+                                )
+                            }) {
                                 Image(
-                                    painter = painterResource("img/more.png"),
+                                    painter = painterResource("img/modify.png"),
                                     contentDescription = ""
                                 )
+                            }
+                            //Button for portfolio delete
+                            Button(onClick = {
+                                //TODO() suppression portefeuille
+                            }) {
+                                Image(
+                                    painter = painterResource("img/delete.png"),
+                                    contentDescription = ""
+                                )
+                            }
+                        }
+                    }
+                    if (opened && applicationState.project.portfolios[i].stocks.size > 0) {
+                        Row(Modifier.fillMaxWidth()) {
+                            Text(
+                                "↑ ↑ ↑ ↑ ↑",
+                                Modifier.fillMaxWidth(),
+                                textAlign = TextAlign.Center,
+                                fontWeight = FontWeight.ExtraBold
+                            )
+                        }
+                    }
+                    if (!opened && applicationState.project.portfolios[i].stocks.size > 0) {
+                        Row(Modifier.fillMaxWidth()) {
+                            Text(
+                                "↓ ↓ ↓ ↓ ↓",
+                                Modifier.fillMaxWidth(),
+                                textAlign = TextAlign.Center,
+                                fontWeight = FontWeight.ExtraBold
+                            )
+                        }
+                    }
+                    if (opened && applicationState.project.portfolios[i].stocks.size > 0) {
+                        for (j in 0..applicationState.project.portfolios[i].stocks.size - 1) {
+                            //TODO() Stock light view
+                            Row {
+                                Text(applicationState.project.portfolios[i].stocks[j].name + " (" + applicationState.project.portfolios[i].stocks[j].ticker + ")")
                             }
                         }
                     }
