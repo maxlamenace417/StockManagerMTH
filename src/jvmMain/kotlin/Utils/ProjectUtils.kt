@@ -34,7 +34,7 @@ class ProjectUtils {
             val bottomBarState = BottomBarStateUtil.getBottomBarStateValue()
             var projectJSONAbsolutePath = applicationState.currentProjectPath
             var file = File(projectJSONAbsolutePath)
-            var gsonBuilder = GsonBuilder().setPrettyPrinting().create()
+            var gsonBuilder = GsonBuilder().setPrettyPrinting().serializeSpecialFloatingPointValues().create()
             var jsonString = gsonBuilder.toJson(applicationState.project)
             var fileWriter = FileWriter(file)
             fileWriter.write(jsonString)
