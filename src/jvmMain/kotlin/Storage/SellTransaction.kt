@@ -5,8 +5,9 @@ import java.util.*
 class SellTransaction(date: Date, quantity: Int, unitPrice: Double, taxPrice: Double) : GenericTransaction(date, quantity, unitPrice,
     taxPrice
 ) {
-    override var type: GenericTransactionType = GenericTransactionType.Sell
-
+    init{
+        type = GenericTransactionType.Sell
+    }
     override fun CalculateGenericTransactionInformation(previousGenericTransactionInformation: GenericTransactionInformation): GenericTransactionInformation {
         var currentTotalQuantity = previousGenericTransactionInformation.currentTotalQuantity - quantity
         var currentTotalMoneyInWithoutTax = previousGenericTransactionInformation.currentTotalMoneyInWithoutTax

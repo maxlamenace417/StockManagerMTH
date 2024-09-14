@@ -7,7 +7,7 @@ import AppClasses.ApplicationContent.MainZone.NavigationStateUtil
 import AppClasses.ApplicationStateUtil
 import AppComponents.Utils.RequiredField
 import DatePicker
-import Storage.GenericTransactionType
+import Storage.*
 import Translation.AllTexts
 import Translation.Translator
 import androidx.compose.desktop.ui.tooling.preview.Preview
@@ -228,6 +228,87 @@ fun CreateTransactionTab(modifier: Modifier = Modifier) {
             }
         }
         Row {
+            Button(onClick = {
+                if(transactionType==GenericTransactionType.Default){
+                    BottomBarStateUtil.setBottomBarStateValue(
+                        bottomBarState.copy(
+                            text = Translator.Translate(
+                                applicationState.language,
+                                AllTexts.Select_Transaction_Type
+                            )
+                        )
+                    )
+                }else{
+                    var quantityFinal = quantity.text.toIntOrNull()
+                    if(quantityFinal==null){
+                        BottomBarStateUtil.setBottomBarStateValue(
+                            bottomBarState.copy(
+                                text = Translator.Translate(
+                                    applicationState.language,
+                                    AllTexts.Select_Valid_Quantity
+                                )
+                            )
+                        )
+                    }else{
+                        var unitPriceFinal = unitPrice.text.toDoubleOrNull()
+                        if(unitPriceFinal==null){
+                            BottomBarStateUtil.setBottomBarStateValue(
+                                bottomBarState.copy(
+                                    text = Translator.Translate(
+                                        applicationState.language,
+                                        AllTexts.Select_Valid_Unit_Price
+                                    )
+                                )
+                            )
+                        }else{
+                            var taxPriceFinal = taxPrice.text.toDoubleOrNull()
+                            if(taxPriceFinal==null){
+                                BottomBarStateUtil.setBottomBarStateValue(
+                                    bottomBarState.copy(
+                                        text = Translator.Translate(
+                                            applicationState.language,
+                                            AllTexts.Select_Valid_Tax_Price
+                                        )
+                                    )
+                                )
+                            }else{
+                                //TODO() Add more controls
+                                var newApplicationState = applicationState.copy()
+                                if(transactionType==GenericTransactionType.Buy) {
+                                    newApplicationState.project.portfolios.first { it.name == navigationState.currentPortfolio }.stocks.first { it.name == navigationState.currentStockName && it.ticker == navigationState.currentStockTicker }.genericTransactionWithInfoList.AddGenericTransaction(
+                                        BuyTransaction(selectedDate, quantityFinal, unitPriceFinal, taxPriceFinal)
+                                    )
+                                }
+                                if(transactionType==GenericTransactionType.Sell) {
+                                    newApplicationState.project.portfolios.first { it.name == navigationState.currentPortfolio }.stocks.first { it.name == navigationState.currentStockName && it.ticker == navigationState.currentStockTicker }.genericTransactionWithInfoList.AddGenericTransaction(
+                                        SellTransaction(selectedDate, quantityFinal, unitPriceFinal, taxPriceFinal)
+                                    )
+                                }
+                                if(transactionType==GenericTransactionType.Dividend) {
+                                    newApplicationState.project.portfolios.first { it.name == navigationState.currentPortfolio }.stocks.first { it.name == navigationState.currentStockName && it.ticker == navigationState.currentStockTicker }.genericTransactionWithInfoList.AddGenericTransaction(
+                                        DividendTransaction(selectedDate, quantityFinal, unitPriceFinal, taxPriceFinal)
+                                    )
+                                }
+                                BottomBarStateUtil.setBottomBarStateValue(
+                                    bottomBarState.copy(
+                                        text = Translator.Translate(
+                                            applicationState.language,
+                                            AllTexts.Transaction_Created
+                                        ) + ": " + navigationState.currentStockName  + " (" + navigationState.currentStockTicker + ") " + Translator.Translate(
+                                            applicationState.language,
+                                            AllTexts.`in`
+                                        ) + " " + navigationState.currentPortfolio
+                                    )
+                                )
+                                MainZoneStateUtil.setMainZoneStateValue(mainZoneState.copy(mainZoneScreenToDisplay = MainZoneScreenToDisplay.ViewStock))
+                                ApplicationStateUtil.setApplicationStateValue(newApplicationState)
+                            }
+                        }
+                    }
+                }
+            }){
+                Text(Translator.Translate(applicationState.language, AllTexts.Validate))
+            }
             Button(onClick = {
                 MainZoneStateUtil.setMainZoneStateValue(mainZoneState.copy(mainZoneScreenToDisplay = MainZoneScreenToDisplay.ViewStock))
             }) {

@@ -5,7 +5,9 @@ import java.util.*
 class DividendTransaction(date: Date, quantity: Int, unitPrice: Double, taxPrice: Double) : GenericTransaction(date, quantity, unitPrice,
     taxPrice
 ) {
-    override var type: GenericTransactionType = GenericTransactionType.Dividend
+    init{
+        type = GenericTransactionType.Dividend
+    }
 
     override fun CalculateGenericTransactionInformation(previousGenericTransactionInformation: GenericTransactionInformation): GenericTransactionInformation {
         var currentTotalQuantity = previousGenericTransactionInformation.currentTotalQuantity

@@ -76,6 +76,12 @@ class TranslatorFR : TranslatorFactory() {
             AllTexts.Quantity -> return ("Quantité")
             AllTexts.Unit_Price -> return ("Prix unitaire")
             AllTexts.Total_Taxes -> return ("Taxes totales")
+            AllTexts.Select_Transaction_Type -> return ("Sélectionnez le type de transaction")
+            AllTexts.Select_Valid_Quantity -> return ("Entrez une quantité valide")
+            AllTexts.Select_Valid_Unit_Price -> return ("Entrez un prix unitaire valide")
+            AllTexts.Select_Valid_Tax_Price -> return ("Entrez une taxe valide")
+            AllTexts.Transaction_Created -> return ("Transaction créée")
+            AllTexts.Type -> return ("Type")
             else -> return "LABEL KO: " + toTranslate
         }
     }

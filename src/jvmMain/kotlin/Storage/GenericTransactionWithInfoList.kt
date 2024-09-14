@@ -18,7 +18,7 @@ class GenericTransactionWithInfoList {
 
     fun AddGenericTransaction(genericTransaction: GenericTransaction){
         genericTransactionsWithInformation = genericTransactionsWithInformation + GenericTransactionWithInformation(genericTransaction,GenericTransactionInformation(0,0.0,0.0,0.0,0.0,0.0,0.0,0.0))
-        genericTransactionsWithInformation.sortedBy { genericTransaction.date }
+        genericTransactionsWithInformation = genericTransactionsWithInformation.sortedBy { it.genericTransaction.date.time }
         RecalculateAll()
     }
 

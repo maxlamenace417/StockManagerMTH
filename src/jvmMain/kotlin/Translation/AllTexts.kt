@@ -72,5 +72,11 @@ enum class AllTexts {
     Hour,
     Quantity,
     Unit_Price,
-    Total_Taxes
+    Total_Taxes,
+    Select_Transaction_Type,
+    Select_Valid_Quantity,
+    Select_Valid_Unit_Price,
+    Select_Valid_Tax_Price,
+    Transaction_Created,
+    Type
 }
