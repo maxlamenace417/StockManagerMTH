@@ -82,6 +82,7 @@ class TranslatorFR : TranslatorFactory() {
             AllTexts.Select_Valid_Tax_Price -> return ("Entrez une taxe valide")
             AllTexts.Transaction_Created -> return ("Transaction créée")
             AllTexts.Type -> return ("Type")
+            AllTexts.PRU -> return ("PRU")
             else -> return "LABEL KO: " + toTranslate
         }
     }

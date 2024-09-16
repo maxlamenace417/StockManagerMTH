@@ -78,5 +78,6 @@ enum class AllTexts {
     Select_Valid_Unit_Price,
     Select_Valid_Tax_Price,
     Transaction_Created,
-    Type
+    Type,
+    PRU
 }

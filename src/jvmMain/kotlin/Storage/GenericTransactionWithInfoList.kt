@@ -3,9 +3,10 @@ package Storage
 import java.lang.StringBuilder
 
 class GenericTransactionWithInfoList {
-    var genericTransactionsWithInformation : List<GenericTransactionWithInformation> = mutableListOf<GenericTransactionWithInformation>()
+    var genericTransactionsWithInformation : MutableList<GenericTransactionWithInformation> = mutableListOf<GenericTransactionWithInformation>()
 
-    private fun RecalculateAll(){
+    fun RecalculateAll(){
+        genericTransactionsWithInformation.sortedBy { it.genericTransaction.date.time }
         for(i in 0..genericTransactionsWithInformation.size-1){
             if(i==0){
                 var genericTransactionInformationTemp = GenericTransactionInformation(0,0.0,0.0,0.0,0.0,0.0,0.0,0.0)
@@ -17,8 +18,7 @@ class GenericTransactionWithInfoList {
     }
 
     fun AddGenericTransaction(genericTransaction: GenericTransaction){
-        genericTransactionsWithInformation = genericTransactionsWithInformation + GenericTransactionWithInformation(genericTransaction,GenericTransactionInformation(0,0.0,0.0,0.0,0.0,0.0,0.0,0.0))
-        genericTransactionsWithInformation = genericTransactionsWithInformation.sortedBy { it.genericTransaction.date.time }
+        genericTransactionsWithInformation.add(GenericTransactionWithInformation(genericTransaction,GenericTransactionInformation(0,0.0,0.0,0.0,0.0,0.0,0.0,0.0)))
         RecalculateAll()
     }
 
