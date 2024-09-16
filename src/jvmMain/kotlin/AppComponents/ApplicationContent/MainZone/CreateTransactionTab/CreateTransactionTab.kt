@@ -274,21 +274,9 @@ fun CreateTransactionTab(modifier: Modifier = Modifier) {
                             }else{
                                 //TODO() Add more controls
                                 var newApplicationState = applicationState.copy()
-                                if(transactionType==GenericTransactionType.Buy) {
-                                    newApplicationState.project.portfolios.first { it.name == navigationState.currentPortfolio }.stocks.first { it.name == navigationState.currentStockName && it.ticker == navigationState.currentStockTicker }.genericTransactionWithInfoList.AddGenericTransaction(
-                                        BuyTransaction(selectedDate, quantityFinal, unitPriceFinal, taxPriceFinal)
-                                    )
-                                }
-                                if(transactionType==GenericTransactionType.Sell) {
-                                    newApplicationState.project.portfolios.first { it.name == navigationState.currentPortfolio }.stocks.first { it.name == navigationState.currentStockName && it.ticker == navigationState.currentStockTicker }.genericTransactionWithInfoList.AddGenericTransaction(
-                                        SellTransaction(selectedDate, quantityFinal, unitPriceFinal, taxPriceFinal)
-                                    )
-                                }
-                                if(transactionType==GenericTransactionType.Dividend) {
-                                    newApplicationState.project.portfolios.first { it.name == navigationState.currentPortfolio }.stocks.first { it.name == navigationState.currentStockName && it.ticker == navigationState.currentStockTicker }.genericTransactionWithInfoList.AddGenericTransaction(
-                                        DividendTransaction(selectedDate, quantityFinal, unitPriceFinal, taxPriceFinal)
-                                    )
-                                }
+                                newApplicationState.project.portfolios.first { it.name == navigationState.currentPortfolio }.stocks.first { it.name == navigationState.currentStockName && it.ticker == navigationState.currentStockTicker }.genericTransactionWithInfoList.AddGenericTransaction(
+                                    GenericTransaction(selectedDate, quantityFinal, unitPriceFinal, taxPriceFinal, transactionType)
+                                )
                                 BottomBarStateUtil.setBottomBarStateValue(
                                     bottomBarState.copy(
                                         text = Translator.Translate(

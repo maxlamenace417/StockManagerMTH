@@ -2,9 +2,8 @@ package Storage
 
 import java.util.*
 
-open class GenericTransaction(var date: Date, var quantity: Int, var unitPrice: Double, var taxPrice : Double) {
-    open var type : GenericTransactionType = GenericTransactionType.Default
-    open fun CalculateGenericTransactionInformation(previousGenericTransactionInformation :GenericTransactionInformation): GenericTransactionInformation{
+class GenericTransaction(var date: Date, var quantity: Int, var unitPrice: Double, var taxPrice : Double, var type : GenericTransactionType) {
+    fun CalculateGenericTransactionInformation(previousGenericTransactionInformation :GenericTransactionInformation): GenericTransactionInformation{
         if(type == GenericTransactionType.Buy){
             var currentTotalQuantity = previousGenericTransactionInformation.currentTotalQuantity + quantity
             var currentTotalMoneyInWithoutTax = previousGenericTransactionInformation.currentTotalMoneyInWithoutTax + quantity * unitPrice
