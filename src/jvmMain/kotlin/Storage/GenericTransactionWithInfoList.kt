@@ -6,7 +6,8 @@ class GenericTransactionWithInfoList {
     var genericTransactionsWithInformation : MutableList<GenericTransactionWithInformation> = mutableListOf<GenericTransactionWithInformation>()
 
     fun RecalculateAll(){
-        genericTransactionsWithInformation.sortedBy { it.genericTransaction.date.time }
+        //TODO() faire gaffe au sort
+        genericTransactionsWithInformation = genericTransactionsWithInformation.sortedBy { it.genericTransaction.date.time }.toMutableList()
         for(i in 0..genericTransactionsWithInformation.size-1){
             if(i==0){
                 var genericTransactionInformationTemp = GenericTransactionInformation(0,0.0,0.0,0.0,0.0,0.0,0.0,0.0)

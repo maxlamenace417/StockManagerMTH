@@ -10,6 +10,7 @@ import DatePicker
 import Storage.*
 import Translation.AllTexts
 import Translation.Translator
+import Utils.DeepCopy
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -273,7 +274,7 @@ fun CreateTransactionTab(modifier: Modifier = Modifier) {
                                 )
                             }else{
                                 //TODO() Add more controls
-                                var newApplicationState = applicationState.copy()
+                                var newApplicationState = DeepCopy.DeepCopy(applicationState)
                                 newApplicationState.project.portfolios.first { it.name == navigationState.currentPortfolio }.stocks.first { it.name == navigationState.currentStockName && it.ticker == navigationState.currentStockTicker }.genericTransactionWithInfoList.AddGenericTransaction(
                                     GenericTransaction(selectedDate, quantityFinal, unitPriceFinal, taxPriceFinal, transactionType)
                                 )

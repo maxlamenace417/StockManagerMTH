@@ -68,6 +68,7 @@ fun ViewStockTab(modifier: Modifier = Modifier) {
             Text(Translator.Translate(applicationState.language, AllTexts.Quantity), Modifier.weight(0.1f), fontWeight = FontWeight.ExtraBold)
             Text(Translator.Translate(applicationState.language, AllTexts.Unit_Price), Modifier.weight(0.1f), fontWeight = FontWeight.ExtraBold)
             Text(Translator.Translate(applicationState.language, AllTexts.Total_Taxes), Modifier.weight(0.1f), fontWeight = FontWeight.ExtraBold)
+            Text(Translator.Translate(applicationState.language, AllTexts.Total_Number_Of_Stocks), Modifier.weight(0.1f), fontWeight = FontWeight.ExtraBold)
             Text(Translator.Translate(applicationState.language, AllTexts.PRU), Modifier.weight(0.1f), fontWeight = FontWeight.ExtraBold)
             Spacer(Modifier.weight(0.1f))
         }
@@ -87,6 +88,7 @@ fun ViewStockTab(modifier: Modifier = Modifier) {
                     Text(stock.genericTransactionWithInfoList.genericTransactionsWithInformation[i].genericTransaction.quantity.toString(), Modifier.weight(0.1f))
                     Text(stock.genericTransactionWithInfoList.genericTransactionsWithInformation[i].genericTransaction.unitPrice.toString(), Modifier.weight(0.1f))
                     Text(stock.genericTransactionWithInfoList.genericTransactionsWithInformation[i].genericTransaction.taxPrice.toString(), Modifier.weight(0.1f))
+                    Text(stock.genericTransactionWithInfoList.genericTransactionsWithInformation[i].genericTransactionInformation.currentTotalQuantity.toString(), Modifier.weight(0.1f))
                     Text(stock.genericTransactionWithInfoList.genericTransactionsWithInformation[i].genericTransactionInformation.currentPRU.toString(), Modifier.weight(0.1f))
                     Button(onClick = {
                         //TODO() trolled par la deep copy a créer

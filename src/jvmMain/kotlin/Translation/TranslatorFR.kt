@@ -83,6 +83,7 @@ class TranslatorFR : TranslatorFactory() {
             AllTexts.Transaction_Created -> return ("Transaction créée")
             AllTexts.Type -> return ("Type")
             AllTexts.PRU -> return ("PRU")
+            AllTexts.Total_Number_Of_Stocks -> return ("Nombre d'action")
             else -> return "LABEL KO: " + toTranslate
         }
     }
