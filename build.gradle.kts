@@ -28,6 +28,7 @@ kotlin {
             dependencies {
                 implementation(compose.desktop.currentOs)
                 implementation("com.google.code.gson:gson:2.8.5")
+                implementation("org.jsoup:jsoup:1.18.1")
             }
         }
         val jvmTest by getting

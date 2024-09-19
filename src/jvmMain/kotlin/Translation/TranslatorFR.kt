@@ -84,6 +84,9 @@ class TranslatorFR : TranslatorFactory() {
             AllTexts.Type -> return ("Type")
             AllTexts.PRU -> return ("PRU")
             AllTexts.Total_Number_Of_Stocks -> return ("Nombre d'action")
+            AllTexts.Bourse_Direct_URL -> return ("URL Bourse Direct")
+            AllTexts.Bourse_Direct_URL_Not_Set -> return ("Renseignez l'URL Bourse Direct")
+            AllTexts.Stock_Price_Refreshed -> return ("Prix de l'action mis à jour")
             else -> return "LABEL KO: " + toTranslate
         }
     }

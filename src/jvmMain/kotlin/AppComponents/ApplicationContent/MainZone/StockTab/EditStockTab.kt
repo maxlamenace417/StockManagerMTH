@@ -35,6 +35,8 @@ fun EditStockTab(modifier: Modifier = Modifier) {
 
     var stockName by remember { mutableStateOf(TextFieldValue(navigationState.currentStockName)) }
     var ticker by remember { mutableStateOf(TextFieldValue(navigationState.currentStockTicker)) }
+    val oldBourseDirectUrl = applicationState.project.portfolios.first { it.name == navigationState.currentPortfolio }.stocks.first { it.name == navigationState.currentStockName && it.ticker == navigationState.currentStockTicker }.bourseDirectURL
+    var bourseDirectURL by remember { mutableStateOf(TextFieldValue(oldBourseDirectUrl)) }
     Column(modifier) {
         Row(Modifier.padding(bottom = 5.dp)) {
             Column {
@@ -79,6 +81,27 @@ fun EditStockTab(modifier: Modifier = Modifier) {
             }
         }
         Row {
+            Column {
+                Text(
+                    text = Translator.Translate(
+                        applicationState.language,
+                        AllTexts.Bourse_Direct_URL
+                    )
+                )
+                Row {
+                    BasicTextField(
+                        bourseDirectURL,
+                        onValueChange = { newBourseDirectURL ->
+                            bourseDirectURL = newBourseDirectURL
+                        },
+                        Modifier.background(Color.White).fillMaxWidth(0.8f).padding(5.dp),
+                        textStyle = TextStyle.Default.copy(fontSize = 18.sp),
+                        singleLine = true
+                    )
+                }
+            }
+        }
+        Row {
             Button(onClick = {
                 if (stockName.text.isNullOrEmpty()) {
                     BottomBarStateUtil.setBottomBarStateValue(
@@ -100,7 +123,7 @@ fun EditStockTab(modifier: Modifier = Modifier) {
                             )
                         )
                     } else {
-                        if (applicationState.project.portfolios.first { it.name == navigationState.currentPortfolio }.stocks.any { it.ticker == ticker.text && it.name == stockName.text }) {
+                        if (applicationState.project.portfolios.first { it.name == navigationState.currentPortfolio }.stocks.any { it.ticker == ticker.text && it.name == stockName.text } && oldBourseDirectUrl==bourseDirectURL.text) {
                             BottomBarStateUtil.setBottomBarStateValue(
                                 bottomBarState.copy(
                                     text = Translator.Translate(
@@ -115,6 +138,7 @@ fun EditStockTab(modifier: Modifier = Modifier) {
                             var stock = newApplicationState.project.portfolios.first { it.name == navigationState.currentPortfolio }.stocks.first { it.name == navigationState.currentStockName && it.ticker == navigationState.currentStockTicker }
                             stock.name = stockName.text
                             stock.ticker = ticker.text
+                            stock.bourseDirectURL = bourseDirectURL.text
                             BottomBarStateUtil.setBottomBarStateValue(
                                 bottomBarState.copy(
                                     text = Translator.Translate(

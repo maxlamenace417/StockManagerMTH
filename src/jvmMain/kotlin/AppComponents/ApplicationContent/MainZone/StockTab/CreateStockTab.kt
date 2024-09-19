@@ -36,6 +36,7 @@ fun CreateStockTab(modifier: Modifier = Modifier) {
 
     var stockName by remember { mutableStateOf(TextFieldValue("")) }
     var ticker by remember { mutableStateOf(TextFieldValue("")) }
+    var bourseDirectURL by remember { mutableStateOf(TextFieldValue("")) }
     Column(modifier) {
         Row(Modifier.padding(bottom = 5.dp)) {
             Column {
@@ -80,6 +81,27 @@ fun CreateStockTab(modifier: Modifier = Modifier) {
             }
         }
         Row {
+            Column {
+                Text(
+                    text = Translator.Translate(
+                        applicationState.language,
+                        AllTexts.Bourse_Direct_URL
+                    )
+                )
+                Row {
+                    BasicTextField(
+                        bourseDirectURL,
+                        onValueChange = { newBourseDirectURL ->
+                            bourseDirectURL = newBourseDirectURL
+                        },
+                        Modifier.background(Color.White).fillMaxWidth(0.8f).padding(5.dp),
+                        textStyle = TextStyle.Default.copy(fontSize = 18.sp),
+                        singleLine = true
+                    )
+                }
+            }
+        }
+        Row {
             Button(onClick = {
                 if (stockName.text.isNullOrEmpty()) {
                     BottomBarStateUtil.setBottomBarStateValue(
@@ -114,7 +136,7 @@ fun CreateStockTab(modifier: Modifier = Modifier) {
                             //TODO() check if stocks not already in portfolio
                             var newApplicationState = applicationState.copy()
                             newApplicationState.project.portfolios.first { it.name == navigationState.currentPortfolio }.stocks.add(
-                                Stock(name = stockName.text, ticker = ticker.text)
+                                Stock(name = stockName.text, ticker = ticker.text, bourseDirectURL = bourseDirectURL.text)
                             )
                             BottomBarStateUtil.setBottomBarStateValue(
                                 bottomBarState.copy(

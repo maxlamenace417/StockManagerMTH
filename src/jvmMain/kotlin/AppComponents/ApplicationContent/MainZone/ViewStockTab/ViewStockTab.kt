@@ -39,6 +39,7 @@ fun ViewStockTab(modifier: Modifier = Modifier) {
     var portfolio = applicationState.project.portfolios.first{it.name == navigationState.currentPortfolio}
     var stock = portfolio.stocks.first{it.name == navigationState.currentStockName && it.ticker == navigationState.currentStockTicker}
     Column(modifier) {
+        ViewStockTabHeader()
         Row{
             Button(onClick = {
                 //Create a transaction
@@ -54,14 +55,7 @@ fun ViewStockTab(modifier: Modifier = Modifier) {
             }){
                 Text(Translator.Translate(applicationState.language, AllTexts.Create_Transaction))
             }
-            //Return button
-            Button(onClick = {
-                MainZoneStateUtil.setMainZoneStateValue(mainZoneState.copy(mainZoneScreenToDisplay = MainZoneScreenToDisplay.ViewPortfolio))
-            }) {
-                Text(Translator.Translate(applicationState.language, AllTexts.Return))
-            }
         }
-        Text(text = portfolio.name+ ": " + stock.name + " ("+stock.ticker+")", fontWeight = FontWeight.ExtraBold, fontSize = 16.sp)
         Row(Modifier.fillMaxWidth()){
             Text(Translator.Translate(applicationState.language, AllTexts.Date), Modifier.weight(0.12f), fontWeight = FontWeight.ExtraBold)
             Text(Translator.Translate(applicationState.language, AllTexts.Type), Modifier.weight(0.08f), fontWeight = FontWeight.ExtraBold)

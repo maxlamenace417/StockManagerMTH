@@ -80,5 +80,8 @@ enum class AllTexts {
     Transaction_Created,
     Type,
     PRU,
-    Total_Number_Of_Stocks
+    Total_Number_Of_Stocks,
+    Bourse_Direct_URL,
+    Bourse_Direct_URL_Not_Set,
+    Stock_Price_Refreshed
 }

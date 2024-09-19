@@ -11,6 +11,7 @@ import Components.grayBoxStyle
 import Session.Installer
 import Translation.AllTexts
 import Translation.Translator
+import Utils.URLUtils.Companion.fetch
 import androidx.compose.material.MaterialTheme
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.*
@@ -19,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
+import org.jsoup.Jsoup
 
 
 @Composable
@@ -56,6 +58,7 @@ fun main() = application {
     //Install on run if not already installed
     var installer = Installer()
     installer.Install()
+
 
     //Load previous Session
     //TODO()

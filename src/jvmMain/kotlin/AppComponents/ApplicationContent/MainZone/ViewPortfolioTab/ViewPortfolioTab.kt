@@ -8,6 +8,7 @@ import AppClasses.ApplicationStateUtil
 import Components.grayBoxStyle
 import Translation.AllTexts
 import Translation.Translator
+import Utils.URLUtils
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.*
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -32,6 +33,7 @@ fun ViewPortfolioTab(modifier: Modifier = Modifier) {
     val bottomBarState = BottomBarStateUtil.getBottomBarStateValue()
     var portfolio = applicationState.project.portfolios.first{it.name == navigationState.currentPortfolio}
     Column(modifier) {
+        ViewPortfolioTabHeader()
         Row{
             Button(onClick = {
                 //Create a portfolio
@@ -48,7 +50,6 @@ fun ViewPortfolioTab(modifier: Modifier = Modifier) {
                 Text(Translator.Translate(applicationState.language, AllTexts.Create_Stock))
             }
         }
-        Text(text = portfolio.name, fontWeight = FontWeight.ExtraBold, fontSize = 16.sp)
         Column(Modifier.verticalScroll(rememberScrollState())) {
             //TODO() Stock of the portfolio view
             for (i in 0..portfolio.stocks.size - 1){
@@ -61,11 +62,46 @@ fun ViewPortfolioTab(modifier: Modifier = Modifier) {
                     opened = !opened
                 })) {
                     Row(Modifier.fillMaxWidth()) {
-                        Text(
-                            portfolio.stocks[i].name + " (" + portfolio.stocks[i].ticker + ")"
-                        )
+                        Column{
+                            Text(
+                                portfolio.stocks[i].name + " (" + portfolio.stocks[i].ticker + ")"
+                            )
+                            Text(portfolio.stocks[i].currentValue.toString())
+                        }
                         Spacer(Modifier.weight(1f))
                         Row {
+                            //Button for stock price refresh
+                            Button(onClick = {
+                                if(portfolio.stocks[i].bourseDirectURL.isNullOrEmpty()){
+                                    BottomBarStateUtil.setBottomBarStateValue(
+                                        bottomBarState.copy(
+                                            text = Translator.Translate(
+                                                applicationState.language,
+                                                AllTexts.Bourse_Direct_URL_Not_Set
+                                            ) + ": " + portfolio.name + " ==> " + portfolio.stocks[i].name + " (" + portfolio.stocks[i].ticker + ")"
+                                        )
+                                    )
+                                }else{
+                                    var currentValue = URLUtils.GetStockPrice(portfolio.stocks[i].bourseDirectURL)
+                                    var newApplicationState = applicationState.copy()
+                                    var stock = newApplicationState.project.portfolios.first{it.name == navigationState.currentPortfolio}.stocks[i]
+                                    stock.currentValue = currentValue
+                                    ApplicationStateUtil.setApplicationStateValue(newApplicationState)
+                                    BottomBarStateUtil.setBottomBarStateValue(
+                                        bottomBarState.copy(
+                                            text = Translator.Translate(
+                                                applicationState.language,
+                                                AllTexts.Stock_Price_Refreshed
+                                            ) + ": " + portfolio.name + " ==> " + portfolio.stocks[i].name + " (" + portfolio.stocks[i].ticker + ") = "+currentValue
+                                        )
+                                    )
+                                }
+                            }) {
+                                Image(
+                                    painter = painterResource("img/refresh.png"),
+                                    contentDescription = ""
+                                )
+                            }
                             //Button to go to stock detail
                             Button(onClick = {
                                 NavigationStateUtil.setNavigationStateValue(navigationState.copy(currentStockTicker = portfolio.stocks[i].ticker, currentStockName = portfolio.stocks[i].name))
