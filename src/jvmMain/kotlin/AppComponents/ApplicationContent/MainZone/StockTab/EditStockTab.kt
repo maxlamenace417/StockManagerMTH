@@ -37,6 +37,7 @@ fun EditStockTab(modifier: Modifier = Modifier) {
     var ticker by remember { mutableStateOf(TextFieldValue(navigationState.currentStockTicker)) }
     val oldBourseDirectUrl = applicationState.project.portfolios.first { it.name == navigationState.currentPortfolio }.stocks.first { it.name == navigationState.currentStockName && it.ticker == navigationState.currentStockTicker }.bourseDirectURL
     var bourseDirectURL by remember { mutableStateOf(TextFieldValue(oldBourseDirectUrl)) }
+    //TODO() Add optional currentStock field
     Column(modifier) {
         Row(Modifier.padding(bottom = 5.dp)) {
             Column {

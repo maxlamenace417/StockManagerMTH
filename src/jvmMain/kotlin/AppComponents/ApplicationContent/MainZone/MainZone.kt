@@ -10,6 +10,7 @@ import AppComponents.ApplicationContent.MainZone.EmptyViewTab.EmptyView
 import AppComponents.ApplicationContent.MainZone.NewProjectTab.NewProjectTab
 import AppComponents.ApplicationContent.MainZone.PortfolioTab.EditPortfolioTab
 import AppComponents.ApplicationContent.MainZone.ViewPortfolioTab.ViewPortfolioTab
+import AppComponents.ApplicationContent.MainZone.ViewPortfolioTab.ViewPortfolioTabHistogram
 import AppComponents.ApplicationContent.MainZone.ViewProjectTab.ViewProjectTab
 import AppComponents.ApplicationContent.MainZone.ViewStockTab.ViewStockTab
 import androidx.compose.desktop.ui.tooling.preview.Preview
@@ -47,6 +48,9 @@ fun MainZone(modifier: Modifier = Modifier){
         }
         MainZoneScreenToDisplay.CreateTransaction -> {
             CreateTransactionTab(modifier)
+        }
+        MainZoneScreenToDisplay.ViewPortfolioEvolution -> {
+            ViewPortfolioTabHistogram(modifier)
         }
         else -> {
             EmptyView(modifier)

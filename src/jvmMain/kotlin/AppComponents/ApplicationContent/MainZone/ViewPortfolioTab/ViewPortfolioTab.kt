@@ -8,6 +8,7 @@ import AppClasses.ApplicationStateUtil
 import Components.grayBoxStyle
 import Translation.AllTexts
 import Translation.Translator
+import Utils.DeepCopy
 import Utils.URLUtils
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.*
@@ -71,6 +72,7 @@ fun ViewPortfolioTab(modifier: Modifier = Modifier) {
                         Spacer(Modifier.weight(1f))
                         Row {
                             //Button for stock price refresh
+                            //TODO() maybe conditionning button display
                             Button(onClick = {
                                 if(portfolio.stocks[i].bourseDirectURL.isNullOrEmpty()){
                                     BottomBarStateUtil.setBottomBarStateValue(
@@ -83,7 +85,7 @@ fun ViewPortfolioTab(modifier: Modifier = Modifier) {
                                     )
                                 }else{
                                     var currentValue = URLUtils.GetStockPrice(portfolio.stocks[i].bourseDirectURL)
-                                    var newApplicationState = applicationState.copy()
+                                    var newApplicationState = DeepCopy.DeepCopy(applicationState)
                                     var stock = newApplicationState.project.portfolios.first{it.name == navigationState.currentPortfolio}.stocks[i]
                                     stock.currentValue = currentValue
                                     ApplicationStateUtil.setApplicationStateValue(newApplicationState)

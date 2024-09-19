@@ -37,6 +37,7 @@ fun CreateStockTab(modifier: Modifier = Modifier) {
     var stockName by remember { mutableStateOf(TextFieldValue("")) }
     var ticker by remember { mutableStateOf(TextFieldValue("")) }
     var bourseDirectURL by remember { mutableStateOf(TextFieldValue("")) }
+    //TODO() Add optionnal currentStock field
     Column(modifier) {
         Row(Modifier.padding(bottom = 5.dp)) {
             Column {

@@ -5,27 +5,28 @@ import AppClasses.ApplicationContent.MainZone.MainZoneScreenToDisplay
 import AppClasses.ApplicationContent.MainZone.MainZoneStateUtil
 import AppClasses.ApplicationContent.MainZone.NavigationStateUtil
 import AppClasses.ApplicationStateUtil
+import Components.grayBoxStyle
 import Storage.GenericTransactionType
 import Translation.AllTexts
 import Translation.Translator
 import Utils.DeepCopy
 import androidx.compose.desktop.ui.tooling.preview.Preview
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.*
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsHoveredAsState
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import java.math.RoundingMode
 import java.text.SimpleDateFormat
 
 @Composable
@@ -57,20 +58,24 @@ fun ViewStockTab(modifier: Modifier = Modifier) {
             }
         }
         Row(Modifier.fillMaxWidth()){
-            Text(Translator.Translate(applicationState.language, AllTexts.Date), Modifier.weight(0.12f), fontWeight = FontWeight.ExtraBold)
+            Text(Translator.Translate(applicationState.language, AllTexts.Date), Modifier.weight(0.15f), fontWeight = FontWeight.ExtraBold)
             Text(Translator.Translate(applicationState.language, AllTexts.Type), Modifier.weight(0.08f), fontWeight = FontWeight.ExtraBold)
             Text(Translator.Translate(applicationState.language, AllTexts.Quantity), Modifier.weight(0.1f), fontWeight = FontWeight.ExtraBold)
             Text(Translator.Translate(applicationState.language, AllTexts.Unit_Price), Modifier.weight(0.1f), fontWeight = FontWeight.ExtraBold)
             Text(Translator.Translate(applicationState.language, AllTexts.Total_Taxes), Modifier.weight(0.1f), fontWeight = FontWeight.ExtraBold)
             Text(Translator.Translate(applicationState.language, AllTexts.Total_Number_Of_Stocks), Modifier.weight(0.1f), fontWeight = FontWeight.ExtraBold)
             Text(Translator.Translate(applicationState.language, AllTexts.PRU), Modifier.weight(0.1f), fontWeight = FontWeight.ExtraBold)
-            Spacer(Modifier.weight(0.1f))
+            Spacer(Modifier.weight(0.05f))
         }
         Column(Modifier.verticalScroll(rememberScrollState())){
             //TODO() Transaction of the stock view
             for(i in 0..stock.genericTransactionWithInfoList.genericTransactionsWithInformation.size-1){
-                Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically){
-                    Text(SimpleDateFormat("d MMMM yyyy").format(stock.genericTransactionWithInfoList.genericTransactionsWithInformation[i].genericTransaction.date.time), Modifier.weight(0.12f))
+                val interactionSource = remember{ MutableInteractionSource() }
+                val hoverState = interactionSource.collectIsHoveredAsState()
+                Row(Modifier.fillMaxWidth().background(color = if(hoverState.value) {
+                    Color.White} else{
+                    Color.Gray}).fillMaxWidth().hoverable(interactionSource), verticalAlignment = Alignment.CenterVertically){
+                    Text(SimpleDateFormat("d MMMM yyyy").format(stock.genericTransactionWithInfoList.genericTransactionsWithInformation[i].genericTransaction.date.time), Modifier.weight(0.15f))
                     var color = if(stock.genericTransactionWithInfoList.genericTransactionsWithInformation[i].genericTransaction.type==GenericTransactionType.Buy){
                         Color.Green
                     }else if(stock.genericTransactionWithInfoList.genericTransactionsWithInformation[i].genericTransaction.type==GenericTransactionType.Sell){
@@ -83,14 +88,14 @@ fun ViewStockTab(modifier: Modifier = Modifier) {
                     Text(stock.genericTransactionWithInfoList.genericTransactionsWithInformation[i].genericTransaction.unitPrice.toString(), Modifier.weight(0.1f))
                     Text(stock.genericTransactionWithInfoList.genericTransactionsWithInformation[i].genericTransaction.taxPrice.toString(), Modifier.weight(0.1f))
                     Text(stock.genericTransactionWithInfoList.genericTransactionsWithInformation[i].genericTransactionInformation.currentTotalQuantity.toString(), Modifier.weight(0.1f))
-                    Text(stock.genericTransactionWithInfoList.genericTransactionsWithInformation[i].genericTransactionInformation.currentPRU.toString(), Modifier.weight(0.1f))
+                    Text(stock.genericTransactionWithInfoList.genericTransactionsWithInformation[i].genericTransactionInformation.currentPRU.toBigDecimal().setScale(2, RoundingMode.FLOOR).toDouble().toString(), Modifier.weight(0.1f))
+                    //TODO() Edit transaction button
                     Button(onClick = {
-                        //TODO() trolled par la deep copy a créer
                         var applicationStateTemp = DeepCopy.DeepCopy(applicationState)
                         applicationStateTemp.project.portfolios.first{it.name == navigationState.currentPortfolio}.stocks.first{it.name == navigationState.currentStockName && it.ticker == navigationState.currentStockTicker}.genericTransactionWithInfoList.genericTransactionsWithInformation.removeAt(i)
                         applicationStateTemp.project.portfolios.first{it.name == navigationState.currentPortfolio}.stocks.first{it.name == navigationState.currentStockName && it.ticker == navigationState.currentStockTicker}.genericTransactionWithInfoList.RecalculateAll()
                         ApplicationStateUtil.setApplicationStateValue(applicationStateTemp)
-                    }, Modifier.weight(0.1f)){
+                    }, Modifier.weight(0.05f)){
                         Image(
                             painter = painterResource("img/delete.png"),
                             contentDescription = ""

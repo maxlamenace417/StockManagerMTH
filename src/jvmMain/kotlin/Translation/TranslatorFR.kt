@@ -87,6 +87,9 @@ class TranslatorFR : TranslatorFactory() {
             AllTexts.Bourse_Direct_URL -> return ("URL Bourse Direct")
             AllTexts.Bourse_Direct_URL_Not_Set -> return ("Renseignez l'URL Bourse Direct")
             AllTexts.Stock_Price_Refreshed -> return ("Prix de l'action mis à jour")
+            AllTexts.Portfolio -> return ("Portefeuille")
+            AllTexts.Evolution -> return ("Evolution")
+            AllTexts.No_Stocks_Currently_In_Portfolio -> return("Pas d'actions en portefeuille actuellement")
             else -> return "LABEL KO: " + toTranslate
         }
     }

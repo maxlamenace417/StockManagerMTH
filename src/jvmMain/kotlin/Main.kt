@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import org.jsoup.Jsoup
+import java.awt.Dimension
 
 
 @Composable
@@ -66,6 +67,7 @@ fun main() = application {
     val applicationState = ApplicationStateUtil.getApplicationStateValue()
 
     Window(onCloseRequest = ::exitApplication, title = applicationState.title) {
+        window.minimumSize = Dimension(1000,900)
         Application()
     }
 }

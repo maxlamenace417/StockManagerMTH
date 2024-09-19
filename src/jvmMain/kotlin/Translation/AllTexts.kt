@@ -83,5 +83,8 @@ enum class AllTexts {
     Total_Number_Of_Stocks,
     Bourse_Direct_URL,
     Bourse_Direct_URL_Not_Set,
-    Stock_Price_Refreshed
+    Stock_Price_Refreshed,
+    Portfolio,
+    Evolution,
+    No_Stocks_Currently_In_Portfolio
 }
