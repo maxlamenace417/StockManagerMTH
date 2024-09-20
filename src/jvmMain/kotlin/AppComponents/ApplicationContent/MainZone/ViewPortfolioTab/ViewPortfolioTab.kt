@@ -18,12 +18,14 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import java.math.RoundingMode
 
 @Composable
 @Preview
@@ -35,9 +37,9 @@ fun ViewPortfolioTab(modifier: Modifier = Modifier) {
     var portfolio = applicationState.project.portfolios.first{it.name == navigationState.currentPortfolio}
     Column(modifier) {
         ViewPortfolioTabHeader()
-        Row{
+        Row(verticalAlignment = Alignment.CenterVertically){
             Button(onClick = {
-                //Create a portfolio
+                //Create a stock button
                 MainZoneStateUtil.setMainZoneStateValue(mainZoneState.copy(mainZoneScreenToDisplay = MainZoneScreenToDisplay.CreateStock))
                 BottomBarStateUtil.setBottomBarStateValue(
                     bottomBarState.copy(
@@ -50,6 +52,72 @@ fun ViewPortfolioTab(modifier: Modifier = Modifier) {
             }){
                 Text(Translator.Translate(applicationState.language, AllTexts.Create_Stock))
             }
+            Button(onClick = {
+                //Sort by price button ascending
+                var applicationStateTemp = DeepCopy.DeepCopy(applicationState)
+                applicationStateTemp.project.portfolios.first{it.name == navigationState.currentPortfolio}.stocks.sortBy { it.getCurrentTotalValue() }
+                ApplicationStateUtil.setApplicationStateValue(applicationStateTemp)
+            }){
+                Image(
+                    painter = painterResource("img/price_sort_asc.png"),
+                    contentDescription = ""
+                )
+            }
+            Button(onClick = {
+                //Sort by price button descending
+                var applicationStateTemp = DeepCopy.DeepCopy(applicationState)
+                applicationStateTemp.project.portfolios.first{it.name == navigationState.currentPortfolio}.stocks.sortByDescending { it.getCurrentTotalValue() }
+                ApplicationStateUtil.setApplicationStateValue(applicationStateTemp)
+            }){
+                Image(
+                    painter = painterResource("img/price_sort_desc.png"),
+                    contentDescription = ""
+                )
+            }
+            Button(onClick = {
+                //Sort by alphabetical button ascending
+                var applicationStateTemp = DeepCopy.DeepCopy(applicationState)
+                applicationStateTemp.project.portfolios.first{it.name == navigationState.currentPortfolio}.stocks.sortBy { it.name }
+                ApplicationStateUtil.setApplicationStateValue(applicationStateTemp)
+            }){
+                Image(
+                    painter = painterResource("img/alphabet_sort_asc.png"),
+                    contentDescription = ""
+                )
+            }
+            Button(onClick = {
+                //Sort by alphabetical button descending
+                var applicationStateTemp = DeepCopy.DeepCopy(applicationState)
+                applicationStateTemp.project.portfolios.first{it.name == navigationState.currentPortfolio}.stocks.sortByDescending { it.name }
+                ApplicationStateUtil.setApplicationStateValue(applicationStateTemp)
+            }){
+                Image(
+                    painter = painterResource("img/alphabet_sort_desc.png"),
+                    contentDescription = ""
+                )
+            }
+            Button(onClick = {
+                //Sort by evolution button ascending
+                var applicationStateTemp = DeepCopy.DeepCopy(applicationState)
+                applicationStateTemp.project.portfolios.first{it.name == navigationState.currentPortfolio}.stocks.sortBy { it.getCurrentEvolution() }
+                ApplicationStateUtil.setApplicationStateValue(applicationStateTemp)
+            }){
+                Image(
+                    painter = painterResource("img/evolution_sort_desc.png"),
+                    contentDescription = ""
+                )
+            }
+            Button(onClick = {
+                //Sort by evolution button descending
+                var applicationStateTemp = DeepCopy.DeepCopy(applicationState)
+                applicationStateTemp.project.portfolios.first{it.name == navigationState.currentPortfolio}.stocks.sortByDescending { it.getCurrentEvolution() }
+                ApplicationStateUtil.setApplicationStateValue(applicationStateTemp)
+            }){
+                Image(
+                    painter = painterResource("img/evolution_sort_asc.png"),
+                    contentDescription = ""
+                )
+            }
         }
         Column(Modifier.verticalScroll(rememberScrollState())) {
             //TODO() Stock of the portfolio view
@@ -59,15 +127,36 @@ fun ViewPortfolioTab(modifier: Modifier = Modifier) {
                 var opened by remember { mutableStateOf(false) }
                 Column(Modifier.padding(bottom = 5.dp).grayBoxStyle(backgroundColor = if(hoverState.value) {
                     Color.White} else{
-                    Color.Gray}).fillMaxWidth().hoverable(interactionSource).clickable(interactionSource, null, onClick={
+                    Color(166,166,166)}).fillMaxWidth().hoverable(interactionSource).clickable(interactionSource, null, onClick={
                     opened = !opened
                 })) {
                     Row(Modifier.fillMaxWidth()) {
                         Column{
                             Text(
-                                portfolio.stocks[i].name + " (" + portfolio.stocks[i].ticker + ")"
+                                text = portfolio.stocks[i].name + " (" + portfolio.stocks[i].ticker + ")",
+                                fontWeight = FontWeight.ExtraBold,
                             )
-                            Text(portfolio.stocks[i].currentValue.toString())
+                            Row {
+                                Text(portfolio.stocks[i].currentValue.toString()+ " (x "+portfolio.stocks[i].getCurrentTotalQuantity()+")")
+                                var currentTotalInvestedValue =
+                                    portfolio.stocks[i].getCurrentTotalInvestedValue().toBigDecimal().setScale(2, RoundingMode.FLOOR).toDouble()
+                                var currentTotalValue =
+                                    portfolio.stocks[i].getCurrentTotalValue().toBigDecimal().setScale(2, RoundingMode.FLOOR).toDouble()
+                                var color = if (currentTotalInvestedValue > currentTotalValue) {
+                                    Color.Red
+                                } else {
+                                    Color.Green
+                                }
+                                var difference = (currentTotalValue - currentTotalInvestedValue).toBigDecimal().setScale(2, RoundingMode.FLOOR).toDouble()
+                                var differencePercent = if(currentTotalInvestedValue!=0.0){(((currentTotalValue / currentTotalInvestedValue)-1)*100).toBigDecimal().setScale(2, RoundingMode.FLOOR).toDouble()}else{0.0}
+                                var sign = if(difference>0){"+"}else{""}
+                                Text(
+                                    text = currentTotalValue.toString() + " € ("+sign+difference+" € / "+sign+differencePercent+" %)",
+                                    color = color,
+                                    modifier = Modifier.padding(start=5.dp),
+                                    fontWeight = FontWeight.Bold,
+                                )
+                            }
                         }
                         Spacer(Modifier.weight(1f))
                         Row {

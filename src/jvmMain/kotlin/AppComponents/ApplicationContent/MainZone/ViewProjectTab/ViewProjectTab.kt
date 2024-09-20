@@ -58,7 +58,7 @@ fun ViewProjectTab(modifier: Modifier = Modifier) {
                         backgroundColor = if (hoverState.value) {
                             Color.White
                         } else {
-                            Color.Gray
+                            Color(166,166,166)
                         }
                     ).fillMaxWidth().hoverable(interactionSource).clickable(interactionSource, null, onClick = {
                         opened = !opened
