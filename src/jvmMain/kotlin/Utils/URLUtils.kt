@@ -19,13 +19,5 @@ class URLUtils {
         fun fetch (url : URI) : String {
             return fetch(url.toURL())
         }
-
-        fun GetStockPrice(url : String) : Double{
-            var res = fetch(url)
-            var doc = Jsoup.parse(res)
-            var divs = doc.select("span.quotation-last.bd-streaming-select-value-last")
-            var price = if(divs.isEmpty()){0.0}else{divs[0].text().toDouble()}
-            return price
-        }
     }
 }

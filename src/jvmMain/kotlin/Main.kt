@@ -11,6 +11,7 @@ import Components.grayBoxStyle
 import Session.Installer
 import Translation.AllTexts
 import Translation.Translator
+import Utils.BourseDirectParser
 import Utils.URLUtils.Companion.fetch
 import androidx.compose.material.MaterialTheme
 import androidx.compose.desktop.ui.tooling.preview.Preview
@@ -65,6 +66,8 @@ fun main() = application {
     //TODO()
 
     val applicationState = ApplicationStateUtil.getApplicationStateValue()
+
+    //var test = BourseDirectParser.GetHistoryFromBourseDirectURL("https://www.boursedirect.fr/fr/marche/euronext-paris/amundi-FR0004125920-AMUN-EUR-XPAR/seance")
 
     Window(onCloseRequest = ::exitApplication, title = applicationState.title) {
         window.minimumSize = Dimension(1000,900)
