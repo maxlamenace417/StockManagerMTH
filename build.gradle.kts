@@ -29,6 +29,7 @@ kotlin {
                 implementation(compose.desktop.currentOs)
                 implementation("com.google.code.gson:gson:2.8.5")
                 implementation("org.jsoup:jsoup:1.18.1")
+                //implementation("io.github.thechance101:chart:Beta-1.0.1")
             }
         }
         val jvmTest by getting

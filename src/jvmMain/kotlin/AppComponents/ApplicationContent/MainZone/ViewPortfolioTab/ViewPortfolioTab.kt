@@ -118,6 +118,36 @@ fun ViewPortfolioTab(modifier: Modifier = Modifier) {
                     contentDescription = ""
                 )
             }
+            Button(onClick = {
+                for(i in 0..portfolio.stocks.size-1) {
+                    if (portfolio.stocks[i].bourseDirectURL.isNullOrEmpty()) {
+                    } else {
+                        var currentValue =
+                            BourseDirectParser.GetStockPriceFromBourseDirectURL(portfolio.stocks[i].bourseDirectURL)
+                        var newApplicationState = DeepCopy.DeepCopy(ApplicationStateUtil.getApplicationStateValue())
+                        var stock =
+                            newApplicationState.project.portfolios.first { it.name == navigationState.currentPortfolio }.stocks[i]
+                        stock.currentValue = currentValue
+                        ApplicationStateUtil.setApplicationStateValue(newApplicationState)
+                    }
+                    if(i<portfolio.stocks.size-1) {
+                        Thread.sleep((1000..2000).random().toLong())
+                    }
+                }
+                BottomBarStateUtil.setBottomBarStateValue(
+                    bottomBarState.copy(
+                        text = Translator.Translate(
+                            applicationState.language,
+                            AllTexts.Stock_Price_Refreshed
+                        )
+                    )
+                )
+            }) {
+                Image(
+                    painter = painterResource("img/refresh.png"),
+                    contentDescription = ""
+                )
+            }
         }
         Column(Modifier.verticalScroll(rememberScrollState())) {
             //TODO() Stock of the portfolio view
