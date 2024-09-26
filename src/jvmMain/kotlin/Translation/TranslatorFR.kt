@@ -90,6 +90,16 @@ class TranslatorFR : TranslatorFactory() {
             AllTexts.Portfolio -> return ("Portefeuille")
             AllTexts.Evolution -> return ("Evolution")
             AllTexts.No_Stocks_Currently_In_Portfolio -> return("Pas d'actions en portefeuille actuellement")
+            AllTexts.Transactions -> return ("Transactions")
+            AllTexts.History -> return("Historique")
+            AllTexts.Open -> return("Ouverture")
+            AllTexts.High -> return("Haut")
+            AllTexts.Low -> return("Bas")
+            AllTexts.Close -> return("Clotûre")
+            AllTexts.Volume -> return("Volume")
+            AllTexts.CSV_Loaded -> return("CSV chargé")
+            AllTexts.No_CSV -> return("Pas de CSV trouvé")
+            AllTexts.Update -> return("Mettre à jour")
             else -> return "LABEL KO: " + toTranslate
         }
     }

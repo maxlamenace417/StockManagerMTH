@@ -86,5 +86,15 @@ enum class AllTexts {
     Stock_Price_Refreshed,
     Portfolio,
     Evolution,
-    No_Stocks_Currently_In_Portfolio
+    No_Stocks_Currently_In_Portfolio,
+    Transactions,
+    History,
+    Open,
+    High,
+    Low,
+    Close,
+    Volume,
+    CSV_Loaded,
+    No_CSV,
+    Update
 }

@@ -67,7 +67,9 @@ fun main() = application {
 
     val applicationState = ApplicationStateUtil.getApplicationStateValue()
 
-    //var test = BourseDirectParser.GetHistoryFromBourseDirectURL("https://www.boursedirect.fr/fr/marche/euronext-paris/amundi-FR0004125920-AMUN-EUR-XPAR/seance")
+    /*var url = "https://www.boursedirect.fr/fr/marche/euronext-paris/amundi-FR0004125920-AMUN-EUR-XPAR/seance"
+    BourseDirectParser.SaveHistoryFromBourseDirectURL(url, "Amundi", "AMUN.PA")
+    var test = BourseDirectParser.LoadHistoryCSVFromBourseDirect("Amundi", "AMUN.PA")*/
 
     Window(onCloseRequest = ::exitApplication, title = applicationState.title) {
         window.minimumSize = Dimension(1000,900)

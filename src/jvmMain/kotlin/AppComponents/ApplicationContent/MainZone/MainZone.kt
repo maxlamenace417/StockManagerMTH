@@ -13,6 +13,7 @@ import AppComponents.ApplicationContent.MainZone.ViewPortfolioTab.ViewPortfolioT
 import AppComponents.ApplicationContent.MainZone.ViewPortfolioTab.ViewPortfolioTabHistogram
 import AppComponents.ApplicationContent.MainZone.ViewProjectTab.ViewProjectTab
 import AppComponents.ApplicationContent.MainZone.ViewStockTab.ViewStockTab
+import AppComponents.ApplicationContent.MainZone.ViewStockTab.ViewStockTabHistory
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -51,6 +52,9 @@ fun MainZone(modifier: Modifier = Modifier){
         }
         MainZoneScreenToDisplay.ViewPortfolioEvolution -> {
             ViewPortfolioTabHistogram(modifier)
+        }
+        MainZoneScreenToDisplay.ViewStockHistory -> {
+            ViewStockTabHistory(modifier)
         }
         else -> {
             EmptyView(modifier)

@@ -11,14 +11,20 @@ class Installer {
     .jar
     config
         sessionParameters.json
+    history
      */
     val configurationFolderPath : String = "config"
-    val sessionParameterPath : String = "config/sessionParameters.json"
+    val historyFolderPath : String = "history"
+    val sessionParameterPath : String = "$configurationFolderPath/sessionParameters.json"
 
     fun CheckIfAlreadyInstall() : Boolean{
         //Check if config directory exists
         var config = File(configurationFolderPath)
         if(!(config.exists() && config.isDirectory)) return false
+
+        //Check if history directory exists
+        var config2 = File(historyFolderPath)
+        if(!(config2.exists() && config2.isDirectory)) return false
 
         //Check if sessionParameters.json exists
         var sessionParameters = File(sessionParameterPath)
@@ -35,6 +41,9 @@ class Installer {
             //Create config directory
             File(configurationFolderPath).mkdirs()
 
+            //Create history directory
+            File(historyFolderPath).mkdirs()
+
             //Create sessionParameters.json
             var gsonApplicationParameters = GsonBuilder().setPrettyPrinting().create()
             var defaultApplicationParameters = ApplicationParameters()
@@ -43,6 +52,8 @@ class Installer {
             var sessionParametersWriter = FileWriter(sessionParameters)
             sessionParametersWriter.write(gsonApplicationParametersString)
             sessionParametersWriter.close()
+
+
         }
     }
 }
