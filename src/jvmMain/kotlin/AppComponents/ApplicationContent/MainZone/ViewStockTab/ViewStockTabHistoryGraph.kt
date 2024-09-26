@@ -12,6 +12,7 @@ import androidx.compose.foundation.*
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -19,6 +20,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import java.text.SimpleDateFormat
 
 @Composable
@@ -38,7 +41,10 @@ fun ViewStockTabHistoryGraph(modifier: Modifier = Modifier) {
     Column(modifier) {
         ViewStockTabHeader()
         ViewStockTabHistoryBar()
-        Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.Bottom){
+        if(stockHistoryState.histories.size>1000){
+            Text(Translator.Translate(applicationState.language, AllTexts.HorizontalScrollTip), fontSize = 12.sp)
+        }
+        Row(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()), verticalAlignment = Alignment.Bottom){
             var maxCloseValue = 0.0
             var minCloseValue = Double.MAX_VALUE
             for(i in 0..stockHistoryState.histories.size-1){
@@ -53,8 +59,14 @@ fun ViewStockTabHistoryGraph(modifier: Modifier = Modifier) {
                 for (i in 0..stockHistoryState.histories.size - 1) {
                     val interactionSource = remember{ MutableInteractionSource() }
                     val hoverState = interactionSource.collectIsHoveredAsState()
-                    Column(Modifier.fillMaxHeight(((stockHistoryState.histories[i].close-minCloseValue+1) / (maxCloseValue-minCloseValue+1)).toFloat()).weight(0.00001f).background(color=Color(if(hoverState.value){255}else{0},0,if(hoverState.value){0}else{i*255/stockHistoryState.histories.size})).hoverable(interactionSource)) {
+                    if(stockHistoryState.histories.size>1000){
+                        Column(Modifier.fillMaxHeight(((stockHistoryState.histories[i].close-minCloseValue+1) / (maxCloseValue-minCloseValue+1)).toFloat()).width(1.dp).background(color=Color(if(hoverState.value){255}else{0},0,if(hoverState.value){0}else{i*255/stockHistoryState.histories.size})).hoverable(interactionSource)) {
 
+                        }
+                    }else{
+                        Column(Modifier.fillMaxHeight(((stockHistoryState.histories[i].close-minCloseValue+1) / (maxCloseValue-minCloseValue+1)).toFloat()).weight(0.1f).background(color=Color(if(hoverState.value){255}else{0},0,if(hoverState.value){0}else{i*255/stockHistoryState.histories.size})).hoverable(interactionSource)) {
+
+                        }
                     }
                     if(hoverState.value){
                         BottomBarStateUtil.setBottomBarStateValue(

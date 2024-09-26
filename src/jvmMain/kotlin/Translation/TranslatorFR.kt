@@ -101,6 +101,7 @@ class TranslatorFR : TranslatorFactory() {
             AllTexts.No_CSV -> return("Pas de CSV trouvé")
             AllTexts.Update -> return("Mettre à jour")
             AllTexts.Graphics -> return("Graphiques")
+            AllTexts.HorizontalScrollTip -> return("Shift + Molette => Scroll Horizontal")
             else -> return "LABEL KO: " + toTranslate
         }
     }
