@@ -96,5 +96,6 @@ enum class AllTexts {
     Volume,
     CSV_Loaded,
     No_CSV,
-    Update
+    Update,
+    Graphics
 }

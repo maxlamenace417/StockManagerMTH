@@ -100,6 +100,7 @@ class TranslatorFR : TranslatorFactory() {
             AllTexts.CSV_Loaded -> return("CSV chargé")
             AllTexts.No_CSV -> return("Pas de CSV trouvé")
             AllTexts.Update -> return("Mettre à jour")
+            AllTexts.Graphics -> return("Graphiques")
             else -> return "LABEL KO: " + toTranslate
         }
     }

@@ -34,6 +34,34 @@ fun ViewStockTabHeader(modifier: Modifier = Modifier) {
 
     var portfolio = applicationState.project.portfolios.first{it.name == navigationState.currentPortfolio}
     var stock = portfolio.stocks.first{it.name == navigationState.currentStockName && it.ticker == navigationState.currentStockTicker}
+
+    fun RefreshData(){
+        if(BourseDirectParser.HistoryCSVFromBourseDirectExists(stock.name, stock.ticker)){
+            var histories = BourseDirectParser.GetHistoryFromBourseDirectCSV(stock.name, stock.ticker)
+            histories.removeAll { it.date.compareTo(stockHistoryState.minDate)<=0 || it.date.compareTo(stockHistoryState.maxDate)>=0}
+            var tempStockHistoryState = StockHistoryState(histories)
+            StockHistoryStateUtil.setStockHistoryStateValue(tempStockHistoryState)
+            BottomBarStateUtil.setBottomBarStateValue(
+                bottomBarState.copy(
+                    text = Translator.Translate(
+                        applicationState.language,
+                        AllTexts.CSV_Loaded
+                    ) + ": " + portfolio.name + " ==> " + stock.name + " (" + stock.ticker + ")"
+                )
+            )
+        }else{
+            StockHistoryStateUtil.setStockHistoryStateValue(StockHistoryState())
+            BottomBarStateUtil.setBottomBarStateValue(
+                bottomBarState.copy(
+                    text = Translator.Translate(
+                        applicationState.language,
+                        AllTexts.No_CSV
+                    ) + ": " + portfolio.name + " ==> " + stock.name + " (" + stock.ticker + ")"
+                )
+            )
+        }
+    }
+
     Column(Modifier.fillMaxWidth()) {
         Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth()) {
             //Return button
@@ -87,33 +115,16 @@ fun ViewStockTabHeader(modifier: Modifier = Modifier) {
                 Text(Translator.Translate(applicationState.language, AllTexts.Transactions))
             }
             Button(onClick = {
-                if(BourseDirectParser.HistoryCSVFromBourseDirectExists(stock.name, stock.ticker)){
-                    var histories = BourseDirectParser.GetHistoryFromBourseDirectCSV(stock.name, stock.ticker)
-                    histories.removeAll { it.date.compareTo(stockHistoryState.minDate)<=0 || it.date.compareTo(stockHistoryState.maxDate)>=0}
-                    var tempStockHistoryState = StockHistoryState(histories)
-                    StockHistoryStateUtil.setStockHistoryStateValue(tempStockHistoryState)
-                    BottomBarStateUtil.setBottomBarStateValue(
-                        bottomBarState.copy(
-                            text = Translator.Translate(
-                                applicationState.language,
-                                AllTexts.CSV_Loaded
-                            ) + ": " + portfolio.name + " ==> " + stock.name + " (" + stock.ticker + ")"
-                        )
-                    )
-                }else{
-                    StockHistoryStateUtil.setStockHistoryStateValue(StockHistoryState())
-                    BottomBarStateUtil.setBottomBarStateValue(
-                        bottomBarState.copy(
-                            text = Translator.Translate(
-                                applicationState.language,
-                                AllTexts.No_CSV
-                            ) + ": " + portfolio.name + " ==> " + stock.name + " (" + stock.ticker + ")"
-                        )
-                    )
-                }
+                RefreshData()
                 MainZoneStateUtil.setMainZoneStateValue(mainZoneState.copy(mainZoneScreenToDisplay = MainZoneScreenToDisplay.ViewStockHistory))
             }) {
                 Text(Translator.Translate(applicationState.language, AllTexts.History))
+            }
+            Button(onClick = {
+                RefreshData()
+                MainZoneStateUtil.setMainZoneStateValue(mainZoneState.copy(mainZoneScreenToDisplay = MainZoneScreenToDisplay.ViewStockHistoryGraph))
+            }) {
+                Text(Translator.Translate(applicationState.language, AllTexts.Graphics))
             }
         }
     }

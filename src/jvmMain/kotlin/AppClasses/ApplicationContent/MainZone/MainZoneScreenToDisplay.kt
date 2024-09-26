@@ -12,5 +12,6 @@ enum class MainZoneScreenToDisplay {
     EditStock,
     CreateTransaction,
     ViewPortfolioEvolution,
-    ViewStockHistory
+    ViewStockHistory,
+    ViewStockHistoryGraph
 }

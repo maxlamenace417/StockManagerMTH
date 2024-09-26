@@ -131,7 +131,7 @@ fun ViewPortfolioTab(modifier: Modifier = Modifier) {
                         ApplicationStateUtil.setApplicationStateValue(newApplicationState)
                     }
                     if(i<portfolio.stocks.size-1) {
-                        Thread.sleep((1000..2000).random().toLong())
+                        Thread.sleep((500..1500).random().toLong())
                     }
                 }
                 BottomBarStateUtil.setBottomBarStateValue(
