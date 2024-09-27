@@ -58,5 +58,9 @@ class Stock(
     fun getCurrentEvolution() : Double{
         return getCurrentTotalValue()/getCurrentTotalInvestedValue()
     }
+    fun getCurrentEvolutionReal() : Double{
+        return getCurrentTotalValue()/getCurrentTotalInvestedValueReal()
+    }
+
 
 }

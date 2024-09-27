@@ -10,7 +10,6 @@ import Translation.AllTexts
 import Translation.Translator
 import Utils.BourseDirectParser
 import Utils.DeepCopy
-import Utils.URLUtils
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.*
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -119,6 +118,28 @@ fun ViewPortfolioTab(modifier: Modifier = Modifier) {
                 )
             }
             Button(onClick = {
+                //Sort by evolution real button ascending
+                var applicationStateTemp = DeepCopy.DeepCopy(applicationState)
+                applicationStateTemp.project.portfolios.first{it.name == navigationState.currentPortfolio}.stocks.sortBy { it.getCurrentEvolutionReal() }
+                ApplicationStateUtil.setApplicationStateValue(applicationStateTemp)
+            }){
+                Image(
+                    painter = painterResource("img/evolution_sort_realPRU_desc.png"),
+                    contentDescription = ""
+                )
+            }
+            Button(onClick = {
+                //Sort by evolution real button descending
+                var applicationStateTemp = DeepCopy.DeepCopy(applicationState)
+                applicationStateTemp.project.portfolios.first{it.name == navigationState.currentPortfolio}.stocks.sortByDescending { it.getCurrentEvolutionReal() }
+                ApplicationStateUtil.setApplicationStateValue(applicationStateTemp)
+            }){
+                Image(
+                    painter = painterResource("img/evolution_sort_realPRU_asc.png"),
+                    contentDescription = ""
+                )
+            }
+            Button(onClick = {
                 for(i in 0..portfolio.stocks.size-1) {
                     if (portfolio.stocks[i].bourseDirectURL.isNullOrEmpty()) {
                     } else {
@@ -162,30 +183,41 @@ fun ViewPortfolioTab(modifier: Modifier = Modifier) {
                 })) {
                     Row(Modifier.fillMaxWidth()) {
                         Column{
-                            Text(
-                                text = portfolio.stocks[i].name + " (" + portfolio.stocks[i].ticker + ")",
-                                fontWeight = FontWeight.ExtraBold,
-                            )
-                            Row {
-                                Text(portfolio.stocks[i].currentValue.toString()+ " (x "+portfolio.stocks[i].getCurrentTotalQuantity()+")")
-                                var currentTotalInvestedValue =
-                                    portfolio.stocks[i].getCurrentTotalInvestedValue().toBigDecimal().setScale(2, RoundingMode.FLOOR).toDouble()
-                                var currentTotalValue =
-                                    portfolio.stocks[i].getCurrentTotalValue().toBigDecimal().setScale(2, RoundingMode.FLOOR).toDouble()
-                                var color = if (currentTotalInvestedValue > currentTotalValue) {
+                            var currentTotalValue =
+                                portfolio.stocks[i].getCurrentTotalValue().toBigDecimal().setScale(2, RoundingMode.FLOOR).toDouble()
+                            @Composable
+                            fun CalculatePercentAndDifference(totalInvestedValue:Double, bold:Boolean){
+                                var color = if (totalInvestedValue > currentTotalValue) {
                                     Color.Red
                                 } else {
                                     Color.Green
                                 }
-                                var difference = (currentTotalValue - currentTotalInvestedValue).toBigDecimal().setScale(2, RoundingMode.FLOOR).toDouble()
-                                var differencePercent = if(currentTotalInvestedValue!=0.0){(((currentTotalValue / currentTotalInvestedValue)-1)*100).toBigDecimal().setScale(2, RoundingMode.FLOOR).toDouble()}else{0.0}
+                                var difference = (currentTotalValue - totalInvestedValue).toBigDecimal().setScale(2, RoundingMode.FLOOR).toDouble()
+                                var differencePercent = if(totalInvestedValue!=0.0){(((currentTotalValue / totalInvestedValue)-1)*100).toBigDecimal().setScale(2, RoundingMode.FLOOR).toDouble()}else{0.0}
                                 var sign = if(difference>0){"+"}else{""}
                                 Text(
                                     text = currentTotalValue.toString() + " € ("+sign+difference+" € / "+sign+differencePercent+" %)",
                                     color = color,
                                     modifier = Modifier.padding(start=5.dp),
-                                    fontWeight = FontWeight.Bold,
+                                    fontWeight = if(bold){FontWeight.Bold}else{FontWeight.Normal
+                                    },
                                 )
+                            }
+                            Text(
+                                text = portfolio.stocks[i].name + " (" + portfolio.stocks[i].ticker + ")",
+                                fontWeight = FontWeight.ExtraBold,
+                            )
+                            Row {
+                                Text(Translator.Translate(applicationState.language, AllTexts.PRU)+ " = " +portfolio.stocks[i].currentValue.toString()+ " (x "+portfolio.stocks[i].getCurrentTotalQuantity()+")")
+                                var currentTotalInvestedValue =
+                                    portfolio.stocks[i].getCurrentTotalInvestedValue().toBigDecimal().setScale(2, RoundingMode.FLOOR).toDouble()
+                                CalculatePercentAndDifference(currentTotalInvestedValue, true)
+                            }
+                            Row {
+                                Text(Translator.Translate(applicationState.language, AllTexts.PRU_Real)+ " = " +portfolio.stocks[i].currentValue.toString()+ " (x "+portfolio.stocks[i].getCurrentTotalQuantity()+")")
+                                var currentTotalInvestedValueReal =
+                                    portfolio.stocks[i].getCurrentTotalInvestedValueReal().toBigDecimal().setScale(2, RoundingMode.FLOOR).toDouble()
+                                CalculatePercentAndDifference(currentTotalInvestedValueReal, false)
                             }
                         }
                         Spacer(Modifier.weight(1f))
