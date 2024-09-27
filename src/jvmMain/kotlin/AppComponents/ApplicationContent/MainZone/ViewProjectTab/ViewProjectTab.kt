@@ -49,7 +49,7 @@ fun ViewProjectTab(modifier: Modifier = Modifier) {
         }
         Column(Modifier.verticalScroll(rememberScrollState())) {
             for (i in 0..applicationState.project.portfolios.size - 1) {
-                //TODO() Portfolio List
+                //Portfolio List
                 val interactionSource = remember { MutableInteractionSource() }
                 val hoverState = interactionSource.collectIsHoveredAsState()
                 var opened by remember { mutableStateOf(false) }

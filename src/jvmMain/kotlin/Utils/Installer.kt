@@ -1,4 +1,4 @@
-package Session
+package Utils
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -45,15 +45,22 @@ class Installer {
             File(historyFolderPath).mkdirs()
 
             //Create sessionParameters.json
-            var gsonApplicationParameters = GsonBuilder().setPrettyPrinting().create()
-            var defaultApplicationParameters = ApplicationParameters()
-            var gsonApplicationParametersString = gsonApplicationParameters.toJson(defaultApplicationParameters)
-            var sessionParameters = File(sessionParameterPath)
-            var sessionParametersWriter = FileWriter(sessionParameters)
-            sessionParametersWriter.write(gsonApplicationParametersString)
-            sessionParametersWriter.close()
-
-
+            SaveSessionParametersFile(ApplicationParameters())
         }
+    }
+
+    fun SaveSessionParametersFile(applicationParameters: ApplicationParameters){
+        var gsonApplicationParameters = GsonBuilder().setPrettyPrinting().create()
+        var gsonApplicationParametersString = gsonApplicationParameters.toJson(applicationParameters)
+        var sessionParameters = File(sessionParameterPath)
+        var sessionParametersWriter = FileWriter(sessionParameters)
+        sessionParametersWriter.write(gsonApplicationParametersString)
+        sessionParametersWriter.close()
+    }
+
+    fun LoadSessionParameters(): ApplicationParameters {
+        val text = File(sessionParameterPath).readText()
+        val gson = Gson()
+        return gson.fromJson(text, ApplicationParameters::class.java)
     }
 }

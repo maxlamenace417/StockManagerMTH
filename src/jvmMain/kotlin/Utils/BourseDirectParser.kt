@@ -1,6 +1,5 @@
 package Utils
 
-import Session.Installer
 import org.jsoup.Jsoup
 import java.io.File
 import java.io.FileWriter

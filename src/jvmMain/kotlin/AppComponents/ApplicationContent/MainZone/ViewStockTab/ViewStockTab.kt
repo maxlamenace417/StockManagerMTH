@@ -70,7 +70,7 @@ fun ViewStockTab(modifier: Modifier = Modifier) {
             Spacer(Modifier.weight(0.05f))
         }
         Column(Modifier.verticalScroll(rememberScrollState())){
-            //TODO() Transaction of the stock view
+            //Transaction of the stock view
             for(i in 0..stock.genericTransactionWithInfoList.genericTransactionsWithInformation.size-1){
                 val interactionSource = remember{ MutableInteractionSource() }
                 val hoverState = interactionSource.collectIsHoveredAsState()

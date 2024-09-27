@@ -134,7 +134,7 @@ fun EditStockTab(modifier: Modifier = Modifier) {
                                 )
                             )
                         } else {
-                            //TODO() check if stocks not already in portfolio
+                            //check if stocks not already in portfolio
                             var newApplicationState = applicationState.copy()
                             var stock = newApplicationState.project.portfolios.first { it.name == navigationState.currentPortfolio }.stocks.first { it.name == navigationState.currentStockName && it.ticker == navigationState.currentStockTicker }
                             stock.name = stockName.text

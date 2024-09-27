@@ -105,6 +105,12 @@ class TranslatorFR : TranslatorFactory() {
             AllTexts.PRU_Real -> return("PRU réel")
             AllTexts.Evolution_Real -> return("Evolution réelle")
             AllTexts.Earnings -> return("Gains")
+            AllTexts.Current_Price -> return("Cours")
+            AllTexts.Navigating_To_Settings_Tab -> return("Ouverture de l'onglet des paramètres")
+            AllTexts.Modify -> return("Modifier")
+            AllTexts.Language -> return("Langue")
+            AllTexts.English -> return("Anglais")
+            AllTexts.French -> return("Français")
             else -> return "LABEL KO: " + toTranslate
         }
     }

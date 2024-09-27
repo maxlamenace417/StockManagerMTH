@@ -19,5 +19,6 @@ fun LeftMenu(modifier: Modifier = Modifier){
         NewProjectButton()
         LoadProjectButton()
         CloseProjectButton()
+        SettingsButton()
     }
 }

@@ -171,7 +171,7 @@ fun ViewPortfolioTab(modifier: Modifier = Modifier) {
             }
         }
         Column(Modifier.verticalScroll(rememberScrollState())) {
-            //TODO() Stock of the portfolio view
+            //Stock of the portfolio view
             for (i in 0..portfolio.stocks.size - 1){
                 val interactionSource = remember{ MutableInteractionSource() }
                 val hoverState = interactionSource.collectIsHoveredAsState()
@@ -204,17 +204,17 @@ fun ViewPortfolioTab(modifier: Modifier = Modifier) {
                                 )
                             }
                             Text(
-                                text = portfolio.stocks[i].name + " (" + portfolio.stocks[i].ticker + ")",
+                                text = portfolio.stocks[i].name + " (" + portfolio.stocks[i].ticker + ") "+portfolio.stocks[i].currentValue.toString()+ " (x "+portfolio.stocks[i].getCurrentTotalQuantity()+")",
                                 fontWeight = FontWeight.ExtraBold,
                             )
                             Row {
-                                Text(Translator.Translate(applicationState.language, AllTexts.PRU)+ " = " +portfolio.stocks[i].currentValue.toString()+ " (x "+portfolio.stocks[i].getCurrentTotalQuantity()+")")
+                                Text(Translator.Translate(applicationState.language, AllTexts.PRU)+ " = " +portfolio.stocks[i].getCurrentPRU().toBigDecimal().setScale(2, RoundingMode.FLOOR).toDouble().toString())
                                 var currentTotalInvestedValue =
                                     portfolio.stocks[i].getCurrentTotalInvestedValue().toBigDecimal().setScale(2, RoundingMode.FLOOR).toDouble()
                                 CalculatePercentAndDifference(currentTotalInvestedValue, true)
                             }
                             Row {
-                                Text(Translator.Translate(applicationState.language, AllTexts.PRU_Real)+ " = " +portfolio.stocks[i].getCurrentPRUToSellToBeEvenWithoutTax().toBigDecimal().setScale(2, RoundingMode.FLOOR).toDouble().toString()+ " (x "+portfolio.stocks[i].getCurrentTotalQuantity()+")")
+                                Text(Translator.Translate(applicationState.language, AllTexts.PRU_Real)+ " = " +portfolio.stocks[i].getCurrentPRUToSellToBeEvenWithoutTax().toBigDecimal().setScale(2, RoundingMode.FLOOR).toDouble().toString())
                                 var currentTotalInvestedValueReal =
                                     portfolio.stocks[i].getCurrentTotalInvestedValueReal().toBigDecimal().setScale(2, RoundingMode.FLOOR).toDouble()
                                 CalculatePercentAndDifference(currentTotalInvestedValueReal, false)

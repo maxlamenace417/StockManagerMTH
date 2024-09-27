@@ -101,5 +101,11 @@ enum class AllTexts {
     HorizontalScrollTip,
     PRU_Real,
     Evolution_Real,
-    Earnings
+    Earnings,
+    Current_Price,
+    Navigating_To_Settings_Tab,
+    Modify,
+    Language,
+    English,
+    French
 }

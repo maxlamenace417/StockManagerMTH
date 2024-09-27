@@ -1,8 +1,8 @@
-package Session
+package Utils
 
 import Translation.AvailableLanguages
 
 data class ApplicationParameters(var lastStartedProjectPath : String = "",
                                  var automaticallySaveProject : Boolean = false,
-                                 var language : AvailableLanguages = AvailableLanguages.FR) {
+                                 var language : AvailableLanguages = AvailableLanguages.EN) {
 }
