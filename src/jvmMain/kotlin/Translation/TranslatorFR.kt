@@ -103,6 +103,8 @@ class TranslatorFR : TranslatorFactory() {
             AllTexts.Graphics -> return("Graphiques")
             AllTexts.HorizontalScrollTip -> return("Shift + Molette => Scroll Horizontal")
             AllTexts.PRU_Real -> return("PRU réel")
+            AllTexts.Evolution_Real -> return("Evolution réelle")
+            AllTexts.Earnings -> return("Gains")
             else -> return "LABEL KO: " + toTranslate
         }
     }

@@ -11,6 +11,7 @@ import AppComponents.ApplicationContent.MainZone.NewProjectTab.NewProjectTab
 import AppComponents.ApplicationContent.MainZone.PortfolioTab.EditPortfolioTab
 import AppComponents.ApplicationContent.MainZone.ViewPortfolioTab.ViewPortfolioTab
 import AppComponents.ApplicationContent.MainZone.ViewPortfolioTab.ViewPortfolioTabHistogram
+import AppComponents.ApplicationContent.MainZone.ViewPortfolioTab.ViewPortfolioTabHistogramReal
 import AppComponents.ApplicationContent.MainZone.ViewProjectTab.ViewProjectTab
 import AppComponents.ApplicationContent.MainZone.ViewStockTab.ViewStockTab
 import AppComponents.ApplicationContent.MainZone.ViewStockTab.ViewStockTabHistory
@@ -53,6 +54,9 @@ fun MainZone(modifier: Modifier = Modifier){
         }
         MainZoneScreenToDisplay.ViewPortfolioEvolution -> {
             ViewPortfolioTabHistogram(modifier)
+        }
+        MainZoneScreenToDisplay.ViewPortfolioEvolutionReal -> {
+            ViewPortfolioTabHistogramReal(modifier)
         }
         MainZoneScreenToDisplay.ViewStockHistory -> {
             ViewStockTabHistory(modifier)

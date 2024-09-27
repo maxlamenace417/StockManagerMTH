@@ -99,5 +99,7 @@ enum class AllTexts {
     Update,
     Graphics,
     HorizontalScrollTip,
-    PRU_Real
+    PRU_Real,
+    Evolution_Real,
+    Earnings
 }

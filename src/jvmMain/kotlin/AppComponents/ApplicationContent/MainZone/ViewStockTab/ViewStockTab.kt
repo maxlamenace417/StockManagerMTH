@@ -66,6 +66,7 @@ fun ViewStockTab(modifier: Modifier = Modifier) {
             Text(Translator.Translate(applicationState.language, AllTexts.Total_Number_Of_Stocks), Modifier.weight(0.1f), fontWeight = FontWeight.ExtraBold)
             Text(Translator.Translate(applicationState.language, AllTexts.PRU), Modifier.weight(0.1f), fontWeight = FontWeight.ExtraBold)
             Text(Translator.Translate(applicationState.language, AllTexts.PRU_Real), Modifier.weight(0.1f), fontWeight = FontWeight.ExtraBold)
+            Text(Translator.Translate(applicationState.language, AllTexts.Earnings), Modifier.weight(0.1f), fontWeight = FontWeight.ExtraBold)
             Spacer(Modifier.weight(0.05f))
         }
         Column(Modifier.verticalScroll(rememberScrollState())){
@@ -90,7 +91,8 @@ fun ViewStockTab(modifier: Modifier = Modifier) {
                     Text(stock.genericTransactionWithInfoList.genericTransactionsWithInformation[i].genericTransaction.taxPrice.toString(), Modifier.weight(0.1f))
                     Text(stock.genericTransactionWithInfoList.genericTransactionsWithInformation[i].genericTransactionInformation.currentTotalQuantity.toString(), Modifier.weight(0.1f))
                     Text(stock.genericTransactionWithInfoList.genericTransactionsWithInformation[i].genericTransactionInformation.currentPRU.toBigDecimal().setScale(2, RoundingMode.FLOOR).toDouble().toString(), Modifier.weight(0.1f))
-                    Text(stock.genericTransactionWithInfoList.genericTransactionsWithInformation[i].genericTransactionInformation.currentPRUToSellToBeEvenWithoutTax.toBigDecimal().setScale(2, RoundingMode.FLOOR).toDouble().toString(), Modifier.weight(0.1f))
+                    Text(if(stock.genericTransactionWithInfoList.genericTransactionsWithInformation[i].genericTransactionInformation.currentPRUToSellToBeEvenWithoutTax.isInfinite()){"0"}else{stock.genericTransactionWithInfoList.genericTransactionsWithInformation[i].genericTransactionInformation.currentPRUToSellToBeEvenWithoutTax.toBigDecimal().setScale(2, RoundingMode.FLOOR).toDouble().toString()}, Modifier.weight(0.1f))
+                    Text(stock.genericTransactionWithInfoList.genericTransactionsWithInformation[i].genericTransactionInformation.currentEarnings.toBigDecimal().setScale(2, RoundingMode.FLOOR).toDouble().toString(), Modifier.weight(0.1f))
                     //TODO() Edit transaction button
                     Button(onClick = {
                         var applicationStateTemp = DeepCopy.DeepCopy(applicationState)

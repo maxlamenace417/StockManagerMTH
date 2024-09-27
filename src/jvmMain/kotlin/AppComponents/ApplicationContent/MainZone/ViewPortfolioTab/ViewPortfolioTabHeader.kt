@@ -50,13 +50,31 @@ fun ViewPortfolioTabHeader(modifier: Modifier = Modifier) {
             var difference = (currentTotalValue - currentTotalInvestedValue).toBigDecimal().setScale(2, RoundingMode.FLOOR).toDouble()
             var differencePercent = if(currentTotalInvestedValue!=0.0){(((currentTotalValue / currentTotalInvestedValue)-1)*100).toBigDecimal().setScale(2, RoundingMode.FLOOR).toDouble()}else{0.0}
             var sign = if(difference>0){"+"}else{""}
-            Text(
-                text = currentTotalValue.toString() + " € ("+sign+difference+" € / "+sign+differencePercent+" %)",
-                fontWeight = FontWeight.ExtraBold,
-                fontSize = 16.sp,
-                color = color,
-                modifier = Modifier.padding(start=5.dp)
-            )
+            var currentTotalInvestedValueReal =
+                portfolio.getCurrentTotalInvestedValueReal().toBigDecimal().setScale(2, RoundingMode.FLOOR).toDouble()
+            var colorReal = if (currentTotalInvestedValueReal > currentTotalValue) {
+                Color.Red
+            } else {
+                Color.Green
+            }
+            var differenceReal = (currentTotalValue - currentTotalInvestedValueReal).toBigDecimal().setScale(2, RoundingMode.FLOOR).toDouble()
+            var differencePercentReal = if(currentTotalInvestedValueReal!=0.0){(((currentTotalValue / currentTotalInvestedValueReal)-1)*100).toBigDecimal().setScale(2, RoundingMode.FLOOR).toDouble()}else{0.0}
+            var signReal = if(differenceReal>0){"+"}else{""}
+            Column {
+                Text(
+                    text = currentTotalValue.toString() + " € (" + sign + difference + " € / " + sign + differencePercent + " %)",
+                    fontWeight = FontWeight.ExtraBold,
+                    fontSize = 16.sp,
+                    color = color,
+                    modifier = Modifier.padding(start = 5.dp)
+                )
+                Text(
+                    text = currentTotalValue.toString() + " € (" + signReal + differenceReal + " € / " + signReal + differencePercentReal + " %)",
+                    fontSize = 16.sp,
+                    color = colorReal,
+                    modifier = Modifier.padding(start = 5.dp)
+                )
+            }
         }
         //Portfolio tab buttons
         Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth()){
@@ -69,6 +87,11 @@ fun ViewPortfolioTabHeader(modifier: Modifier = Modifier) {
                 MainZoneStateUtil.setMainZoneStateValue(mainZoneState.copy(mainZoneScreenToDisplay = MainZoneScreenToDisplay.ViewPortfolioEvolution))
             }) {
                 Text(Translator.Translate(applicationState.language, AllTexts.Evolution))
+            }
+            Button(onClick = {
+                MainZoneStateUtil.setMainZoneStateValue(mainZoneState.copy(mainZoneScreenToDisplay = MainZoneScreenToDisplay.ViewPortfolioEvolutionReal))
+            }) {
+                Text(Translator.Translate(applicationState.language, AllTexts.Evolution_Real))
             }
         }
     }

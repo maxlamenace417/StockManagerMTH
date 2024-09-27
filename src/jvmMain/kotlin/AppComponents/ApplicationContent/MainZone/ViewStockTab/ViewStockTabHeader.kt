@@ -110,6 +110,7 @@ fun ViewStockTabHeader(modifier: Modifier = Modifier) {
                     )
                 }
                 Row {
+                    var tt = stock.getCurrentTotalInvestedValueReal()
                     var currentTotalInvestedValueReal =
                         stock.getCurrentTotalInvestedValueReal().toBigDecimal().setScale(2, RoundingMode.FLOOR).toDouble()
                     var currentTotalValue =

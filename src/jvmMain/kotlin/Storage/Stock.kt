@@ -20,6 +20,9 @@ class Stock(
         if (genericTransactionWithInfoList.genericTransactionsWithInformation.size > 0) {
             res = genericTransactionWithInfoList.genericTransactionsWithInformation.last().genericTransactionInformation.currentPRUToSellToBeEvenWithoutTax * genericTransactionWithInfoList.genericTransactionsWithInformation.last().genericTransactionInformation.currentTotalQuantity
         }
+        if(res.isNaN()){
+            res = 0.0
+        }
         return res
     }
 
@@ -51,6 +54,9 @@ class Stock(
         var res = 0.0
         if (genericTransactionWithInfoList.genericTransactionsWithInformation.size > 0) {
             res = genericTransactionWithInfoList.genericTransactionsWithInformation.last().genericTransactionInformation.currentPRUToSellToBeEvenWithoutTax
+        }
+        if(res.isInfinite()){
+            res=0.0
         }
         return res
     }
