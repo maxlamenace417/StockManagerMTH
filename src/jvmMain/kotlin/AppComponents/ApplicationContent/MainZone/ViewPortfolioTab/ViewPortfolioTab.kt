@@ -214,7 +214,7 @@ fun ViewPortfolioTab(modifier: Modifier = Modifier) {
                                 CalculatePercentAndDifference(currentTotalInvestedValue, true)
                             }
                             Row {
-                                Text(Translator.Translate(applicationState.language, AllTexts.PRU_Real)+ " = " +portfolio.stocks[i].currentValue.toString()+ " (x "+portfolio.stocks[i].getCurrentTotalQuantity()+")")
+                                Text(Translator.Translate(applicationState.language, AllTexts.PRU_Real)+ " = " +portfolio.stocks[i].getCurrentPRUToSellToBeEvenWithoutTax().toBigDecimal().setScale(2, RoundingMode.FLOOR).toDouble().toString()+ " (x "+portfolio.stocks[i].getCurrentTotalQuantity()+")")
                                 var currentTotalInvestedValueReal =
                                     portfolio.stocks[i].getCurrentTotalInvestedValueReal().toBigDecimal().setScale(2, RoundingMode.FLOOR).toDouble()
                                 CalculatePercentAndDifference(currentTotalInvestedValueReal, false)
