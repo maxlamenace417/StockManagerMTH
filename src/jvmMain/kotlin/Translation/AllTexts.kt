@@ -98,5 +98,6 @@ enum class AllTexts {
     No_CSV,
     Update,
     Graphics,
-    HorizontalScrollTip
+    HorizontalScrollTip,
+    PRU_Real
 }

@@ -15,6 +15,14 @@ class Stock(
         return res
     }
 
+    fun getCurrentTotalInvestedValueReal(): Double {
+        var res = 0.0
+        if (genericTransactionWithInfoList.genericTransactionsWithInformation.size > 0) {
+            res = genericTransactionWithInfoList.genericTransactionsWithInformation.last().genericTransactionInformation.currentPRUToSellToBeEvenWithoutTax * genericTransactionWithInfoList.genericTransactionsWithInformation.last().genericTransactionInformation.currentTotalQuantity
+        }
+        return res
+    }
+
     fun getCurrentTotalValue(): Double {
         var res = 0.0
         if (genericTransactionWithInfoList.genericTransactionsWithInformation.size > 0) {
@@ -27,6 +35,22 @@ class Stock(
         var res = 0
         if (genericTransactionWithInfoList.genericTransactionsWithInformation.size > 0) {
             res = genericTransactionWithInfoList.genericTransactionsWithInformation.last().genericTransactionInformation.currentTotalQuantity
+        }
+        return res
+    }
+
+    fun getCurrentPRU():Double{
+        var res = 0.0
+        if (genericTransactionWithInfoList.genericTransactionsWithInformation.size > 0) {
+            res = genericTransactionWithInfoList.genericTransactionsWithInformation.last().genericTransactionInformation.currentPRU
+        }
+        return res
+    }
+
+    fun getCurrentPRUToSellToBeEvenWithoutTax():Double{
+        var res = 0.0
+        if (genericTransactionWithInfoList.genericTransactionsWithInformation.size > 0) {
+            res = genericTransactionWithInfoList.genericTransactionsWithInformation.last().genericTransactionInformation.currentPRUToSellToBeEvenWithoutTax
         }
         return res
     }

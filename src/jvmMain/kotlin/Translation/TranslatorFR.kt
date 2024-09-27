@@ -102,6 +102,7 @@ class TranslatorFR : TranslatorFactory() {
             AllTexts.Update -> return("Mettre à jour")
             AllTexts.Graphics -> return("Graphiques")
             AllTexts.HorizontalScrollTip -> return("Shift + Molette => Scroll Horizontal")
+            AllTexts.PRU_Real -> return("PRU réel")
             else -> return "LABEL KO: " + toTranslate
         }
     }

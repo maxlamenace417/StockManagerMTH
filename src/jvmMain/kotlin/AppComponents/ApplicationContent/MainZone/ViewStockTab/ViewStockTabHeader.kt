@@ -70,42 +70,91 @@ fun ViewStockTabHeader(modifier: Modifier = Modifier) {
             }) {
                 Text(Translator.Translate(applicationState.language, AllTexts.Return))
             }
-            Text(
-                text = portfolio.name + ": " + stock.name + " (" + stock.ticker + ")",
-                fontWeight = FontWeight.ExtraBold,
-                fontSize = 16.sp,
-                modifier = Modifier.padding(start = 5.dp)
-            )
-            var currentTotalInvestedValue =
-                stock.getCurrentTotalInvestedValue().toBigDecimal().setScale(2, RoundingMode.FLOOR).toDouble()
-            var currentTotalValue =
-                stock.getCurrentTotalValue().toBigDecimal().setScale(2, RoundingMode.FLOOR).toDouble()
-            var color = if (currentTotalInvestedValue > currentTotalValue) {
-                Color.Red
-            } else {
-                Color.Green
+            Column {
+                Row {
+                    Text(
+                        text = portfolio.name + ": " + stock.name + " (" + stock.ticker + ")",
+                        fontWeight = FontWeight.ExtraBold,
+                        fontSize = 16.sp,
+                        modifier = Modifier.padding(start = 5.dp)
+                    )
+                    var currentTotalInvestedValue =
+                        stock.getCurrentTotalInvestedValue().toBigDecimal().setScale(2, RoundingMode.FLOOR).toDouble()
+                    var currentTotalValue =
+                        stock.getCurrentTotalValue().toBigDecimal().setScale(2, RoundingMode.FLOOR).toDouble()
+                    var color = if (currentTotalInvestedValue > currentTotalValue) {
+                        Color.Red
+                    } else {
+                        Color.Green
+                    }
+                    var difference =
+                        (currentTotalValue - currentTotalInvestedValue).toBigDecimal().setScale(2, RoundingMode.FLOOR)
+                            .toDouble()
+                    var differencePercent = if (currentTotalInvestedValue != 0.0) {
+                        (((currentTotalValue / currentTotalInvestedValue) - 1) * 100).toBigDecimal()
+                            .setScale(2, RoundingMode.FLOOR).toDouble()
+                    } else {
+                        0.0
+                    }
+                    var sign = if (difference > 0) {
+                        "+"
+                    } else {
+                        ""
+                    }
+                    Text(
+                        text = currentTotalValue.toString() + " € (" + sign + difference + " € / " + sign + differencePercent + " %)",
+                        fontWeight = FontWeight.ExtraBold,
+                        fontSize = 16.sp,
+                        color = color,
+                        modifier = Modifier.padding(start = 5.dp)
+                    )
+                }
+                Row {
+                    var currentTotalInvestedValueReal =
+                        stock.getCurrentTotalInvestedValueReal().toBigDecimal().setScale(2, RoundingMode.FLOOR).toDouble()
+                    var currentTotalValue =
+                        stock.getCurrentTotalValue().toBigDecimal().setScale(2, RoundingMode.FLOOR).toDouble()
+                    var color = if (currentTotalInvestedValueReal > currentTotalValue) {
+                        Color.Red
+                    } else {
+                        Color.Green
+                    }
+                    var difference =
+                        (currentTotalValue - currentTotalInvestedValueReal).toBigDecimal().setScale(2, RoundingMode.FLOOR)
+                            .toDouble()
+                    var differencePercent = if (currentTotalInvestedValueReal != 0.0) {
+                        (((currentTotalValue / currentTotalInvestedValueReal) - 1) * 100).toBigDecimal()
+                            .setScale(2, RoundingMode.FLOOR).toDouble()
+                    } else {
+                        0.0
+                    }
+                    var sign = if (difference > 0) {
+                        "+"
+                    } else {
+                        ""
+                    }
+                    Text(
+                        text = stock.currentValue.toString() + " (x " + stock.getCurrentTotalQuantity()
+                            .toString() + ") / " + Translator.Translate(
+                            applicationState.language,
+                            AllTexts.PRU
+                        ) + " = " + stock.getCurrentPRU().toBigDecimal().setScale(2, RoundingMode.FLOOR)
+                            .toDouble() + " / " + Translator.Translate(
+                            applicationState.language,
+                            AllTexts.PRU_Real
+                        ) + " = " + stock.getCurrentPRUToSellToBeEvenWithoutTax().toBigDecimal()
+                            .setScale(2, RoundingMode.FLOOR).toDouble(),
+                        fontSize = 16.sp,
+                        modifier = Modifier.padding(start = 5.dp)
+                    )
+                    Text(
+                        text = currentTotalValue.toString() + " € (" + sign + difference + " € / " + sign + differencePercent + " %)",
+                        fontSize = 16.sp,
+                        color = color,
+                        modifier = Modifier.padding(start = 5.dp)
+                    )
+                }
             }
-            var difference =
-                (currentTotalValue - currentTotalInvestedValue).toBigDecimal().setScale(2, RoundingMode.FLOOR)
-                    .toDouble()
-            var differencePercent = if (currentTotalInvestedValue != 0.0) {
-                (((currentTotalValue / currentTotalInvestedValue) - 1) * 100).toBigDecimal()
-                    .setScale(2, RoundingMode.FLOOR).toDouble()
-            } else {
-                0.0
-            }
-            var sign = if (difference > 0) {
-                "+"
-            } else {
-                ""
-            }
-            Text(
-                text = currentTotalValue.toString() + " € (" + sign + difference + " € / " + sign + differencePercent + " %)",
-                fontWeight = FontWeight.ExtraBold,
-                fontSize = 16.sp,
-                color = color,
-                modifier = Modifier.padding(start = 5.dp)
-            )
         }
         //Portfolio tab buttons
         Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth()) {
