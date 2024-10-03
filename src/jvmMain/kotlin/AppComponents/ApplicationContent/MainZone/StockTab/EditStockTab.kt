@@ -37,6 +37,8 @@ fun EditStockTab(modifier: Modifier = Modifier) {
     var ticker by remember { mutableStateOf(TextFieldValue(navigationState.currentStockTicker)) }
     val oldBourseDirectUrl = applicationState.project.portfolios.first { it.name == navigationState.currentPortfolio }.stocks.first { it.name == navigationState.currentStockName && it.ticker == navigationState.currentStockTicker }.bourseDirectURL
     var bourseDirectURL by remember { mutableStateOf(TextFieldValue(oldBourseDirectUrl)) }
+    var oldStockPrice = applicationState.project.portfolios.first { it.name == navigationState.currentPortfolio }.stocks.first { it.name == navigationState.currentStockName && it.ticker == navigationState.currentStockTicker }.currentValue
+    var stockPrice by remember { mutableStateOf(TextFieldValue(oldStockPrice.toString())) }
     //TODO() Add optional currentStock field
     Column(modifier) {
         Row(Modifier.padding(bottom = 5.dp)) {
@@ -73,6 +75,27 @@ fun EditStockTab(modifier: Modifier = Modifier) {
                         ticker,
                         onValueChange = { newTicker ->
                             ticker = newTicker
+                        },
+                        Modifier.background(Color.White).fillMaxWidth(0.8f).padding(5.dp),
+                        textStyle = TextStyle.Default.copy(fontSize = 18.sp),
+                        singleLine = true
+                    )
+                }
+            }
+        }
+        Row {
+            Column {
+                Text(
+                    text = Translator.Translate(
+                        applicationState.language,
+                        AllTexts.Current_Price
+                    )
+                )
+                Row {
+                    BasicTextField(
+                        stockPrice,
+                        onValueChange = { newStockPrice->
+                            stockPrice = newStockPrice
                         },
                         Modifier.background(Color.White).fillMaxWidth(0.8f).padding(5.dp),
                         textStyle = TextStyle.Default.copy(fontSize = 18.sp),
@@ -124,7 +147,8 @@ fun EditStockTab(modifier: Modifier = Modifier) {
                             )
                         )
                     } else {
-                        if (applicationState.project.portfolios.first { it.name == navigationState.currentPortfolio }.stocks.any { it.ticker == ticker.text && it.name == stockName.text } && oldBourseDirectUrl==bourseDirectURL.text) {
+                        var stockPriceFinal = stockPrice.text.toDoubleOrNull()
+                        if (applicationState.project.portfolios.first { it.name == navigationState.currentPortfolio }.stocks.any { it.ticker == ticker.text && it.name == stockName.text } && oldBourseDirectUrl==bourseDirectURL.text && oldStockPrice==stockPriceFinal) {
                             BottomBarStateUtil.setBottomBarStateValue(
                                 bottomBarState.copy(
                                     text = Translator.Translate(
@@ -140,6 +164,7 @@ fun EditStockTab(modifier: Modifier = Modifier) {
                             stock.name = stockName.text
                             stock.ticker = ticker.text
                             stock.bourseDirectURL = bourseDirectURL.text
+                            stock.currentValue = if(stockPriceFinal!=null){stockPriceFinal}else{0.0}
                             BottomBarStateUtil.setBottomBarStateValue(
                                 bottomBarState.copy(
                                     text = Translator.Translate(

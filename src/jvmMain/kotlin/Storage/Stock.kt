@@ -1,5 +1,7 @@
 package Storage
 
+import java.util.*
+
 class Stock(
     var name: String = "",
     var ticker: String = "",
@@ -30,6 +32,20 @@ class Stock(
         var res = 0.0
         if (genericTransactionWithInfoList.genericTransactionsWithInformation.size > 0) {
             res = currentValue * genericTransactionWithInfoList.genericTransactionsWithInformation.last().genericTransactionInformation.currentTotalQuantity
+        }
+        return res
+    }
+
+    fun getTotalQuantityAtDate(date : Date):Int{
+        var res = 0
+        if (genericTransactionWithInfoList.genericTransactionsWithInformation.size > 0) {
+            for(i in 0..genericTransactionWithInfoList.genericTransactionsWithInformation.size-1){
+                if(date.compareTo(genericTransactionWithInfoList.genericTransactionsWithInformation[i].genericTransaction.date)>=0){
+                    res = genericTransactionWithInfoList.genericTransactionsWithInformation[i].genericTransactionInformation.currentTotalQuantity
+                }else{
+                    break;
+                }
+            }
         }
         return res
     }

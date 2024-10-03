@@ -37,6 +37,7 @@ fun CreateStockTab(modifier: Modifier = Modifier) {
     var stockName by remember { mutableStateOf(TextFieldValue("")) }
     var ticker by remember { mutableStateOf(TextFieldValue("")) }
     var bourseDirectURL by remember { mutableStateOf(TextFieldValue("")) }
+    var stockPrice by remember { mutableStateOf(TextFieldValue("")) }
     //TODO() Add optionnal currentStock field
     Column(modifier) {
         Row(Modifier.padding(bottom = 5.dp)) {
@@ -73,6 +74,27 @@ fun CreateStockTab(modifier: Modifier = Modifier) {
                         ticker,
                         onValueChange = { newTicker ->
                             ticker = newTicker
+                        },
+                        Modifier.background(Color.White).fillMaxWidth(0.8f).padding(5.dp),
+                        textStyle = TextStyle.Default.copy(fontSize = 18.sp),
+                        singleLine = true
+                    )
+                }
+            }
+        }
+        Row {
+            Column {
+                Text(
+                    text = Translator.Translate(
+                        applicationState.language,
+                        AllTexts.Current_Price
+                    )
+                )
+                Row {
+                    BasicTextField(
+                        stockPrice,
+                        onValueChange = { newStockPrice->
+                            stockPrice = newStockPrice
                         },
                         Modifier.background(Color.White).fillMaxWidth(0.8f).padding(5.dp),
                         textStyle = TextStyle.Default.copy(fontSize = 18.sp),
@@ -134,10 +156,11 @@ fun CreateStockTab(modifier: Modifier = Modifier) {
                                 )
                             )
                         } else {
+                            var stockPriceFinal = stockPrice.text.toDoubleOrNull()
                             //TODO() check if stocks not already in portfolio
                             var newApplicationState = applicationState.copy()
                             newApplicationState.project.portfolios.first { it.name == navigationState.currentPortfolio }.stocks.add(
-                                Stock(name = stockName.text, ticker = ticker.text, bourseDirectURL = bourseDirectURL.text)
+                                Stock(name = stockName.text, ticker = ticker.text, bourseDirectURL = bourseDirectURL.text, currentValue = if(stockPriceFinal!=null){stockPriceFinal}else{0.0})
                             )
                             BottomBarStateUtil.setBottomBarStateValue(
                                 bottomBarState.copy(
