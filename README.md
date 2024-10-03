@@ -10,8 +10,8 @@ The main goal of the project is to add features I didn't see on other websites o
 The project is still in development but already usable.
 Also, note that the project is mainly base on scrapping data from the website [Bourse Direct](https://www.boursedirect.fr). If you don't have acces to the website, note that most feature of the project won't really work for you at the moment.
 
-#How it works (maybe not up to date)
-##Starting the project
+# How it works (maybe not up to date)
+## Starting the project
 It will just create an install tree like this:
     .jar
     config
@@ -24,8 +24,8 @@ At each start, it will check if the project is correctly installed and if not it
 The first screen you should see will look like this
 ![Startup Screen](./README/img/firstScreen.png "Startup screen")
 
-#Getting started
-##Create new project
+# Getting started
+## Create new project
 Click on the button to create a new project then fill the inputs required:
 - Project name
 - Project directory path
@@ -33,11 +33,11 @@ It will save your project as a json named YOURPROJECTNAME.json in the specified 
 ![Create project 1st step](./README/img/newProject1.png "Create project 1st step")
 You'll then get redirected to the portfolio tab of your project and have full access to the menu.
 
-##Load a project
+## Load a project
 If you want to load an already existing project just click on the following icon and select a valid json file.
 ![Load project](./README/img/loadProject1.png "Load project")
 
-#Menu
+# Menu
 The menu should be on the left of the application and allow you to navigate threw it.
 Here are the different buttons:
 |Button|Function|
