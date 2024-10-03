@@ -5,6 +5,7 @@ import AppClasses.ApplicationContent.MainZone.MainZoneScreenToDisplay
 import AppClasses.ApplicationContent.MainZone.MainZoneStateUtil
 import AppClasses.ApplicationContent.MainZone.NavigationStateUtil
 import AppClasses.ApplicationStateUtil
+import AppComponents.Utils.ConfirmationBox
 import Components.grayBoxStyle
 import Translation.AllTexts
 import Translation.Translator
@@ -291,9 +292,35 @@ fun ViewPortfolioTab(modifier: Modifier = Modifier) {
                                     contentDescription = ""
                                 )
                             }
+                            val openAlertDialog = remember { mutableStateOf(false) }
+                            if(openAlertDialog.value) {
+                                ConfirmationBox(
+                                    onDismissRequest = { openAlertDialog.value = false },
+                                    onConfirmation = {
+                                        BottomBarStateUtil.setBottomBarStateValue(
+                                            bottomBarState.copy(
+                                                text = Translator.Translate(
+                                                    applicationState.language,
+                                                    AllTexts.Stock_Deleted
+                                                ) + ": " + portfolio.name + " ==> " + portfolio.stocks[i].name + " (" + portfolio.stocks[i].ticker + ")"
+                                            )
+                                        )
+                                        applicationState.project.portfolios.first{it.name == navigationState.currentPortfolio}.stocks.removeAt(i)
+                                        openAlertDialog.value = false
+                                    },
+                                    dialogTitle = Translator.Translate(
+                                        applicationState.language,
+                                        AllTexts.Stock_Delete
+                                    )+ ": " + portfolio.name + " ==> " + portfolio.stocks[i].name + " (" + portfolio.stocks[i].ticker + ")",
+                                    dialogText = Translator.Translate(
+                                        applicationState.language,
+                                        AllTexts.Are_You_Sure
+                                    ),
+                                )
+                            }
                             //Button for stock delete
                             Button(onClick = {
-                                //TODO() suppression action
+                                openAlertDialog.value = true
                             }) {
                                 Image(
                                     painter = painterResource("img/delete.png"),

@@ -1,5 +1,5 @@
 # About the project
-The project allows you to create protfolios, stocks and add transaction to them to follow the evolution of your finances.
+The project allows you to create portfolios, stocks and add transaction to them to follow the evolution of your finances.
 The main goal of the project is to add features I didn't see on other websites or trackers such as:
 - Dividend cumulated value
 - Tax cumulated value

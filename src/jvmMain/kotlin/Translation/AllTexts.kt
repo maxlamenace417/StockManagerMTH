@@ -107,5 +107,10 @@ enum class AllTexts {
     Modify,
     Language,
     English,
-    French
+    French,
+    Portfolio_Deleted,
+    Portfolio_Delete,
+    Are_You_Sure,
+    Stock_Deleted,
+    Stock_Delete
 }

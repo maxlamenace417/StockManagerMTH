@@ -5,6 +5,7 @@ import AppClasses.ApplicationContent.MainZone.MainZoneScreenToDisplay
 import AppClasses.ApplicationContent.MainZone.MainZoneStateUtil
 import AppClasses.ApplicationContent.MainZone.NavigationStateUtil
 import AppClasses.ApplicationStateUtil
+import AppComponents.Utils.ConfirmationBox
 import Components.grayBoxStyle
 import Translation.AllTexts
 import Translation.Translator
@@ -108,9 +109,36 @@ fun ViewProjectTab(modifier: Modifier = Modifier) {
                                     contentDescription = ""
                                 )
                             }
+
+                            val openAlertDialog = remember { mutableStateOf(false) }
+                            if(openAlertDialog.value) {
+                                ConfirmationBox(
+                                    onDismissRequest = { openAlertDialog.value = false },
+                                    onConfirmation = {
+                                        BottomBarStateUtil.setBottomBarStateValue(
+                                            bottomBarState.copy(
+                                                text = Translator.Translate(
+                                                    applicationState.language,
+                                                    AllTexts.Portfolio_Deleted
+                                                ) + ": " + applicationState.project.portfolios[i].name
+                                            )
+                                        )
+                                        openAlertDialog.value = false
+                                        applicationState.project.portfolios.removeAt(i)
+                                    },
+                                    dialogTitle = Translator.Translate(
+                                        applicationState.language,
+                                        AllTexts.Portfolio_Delete
+                                    )+ ": " + applicationState.project.portfolios[i].name,
+                                    dialogText = Translator.Translate(
+                                        applicationState.language,
+                                        AllTexts.Are_You_Sure
+                                    ),
+                                )
+                            }
                             //Button for portfolio delete
                             Button(onClick = {
-                                //TODO() suppression portefeuille
+                                openAlertDialog.value = true
                             }) {
                                 Image(
                                     painter = painterResource("img/delete.png"),

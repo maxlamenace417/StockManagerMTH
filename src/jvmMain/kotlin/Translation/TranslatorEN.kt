@@ -111,6 +111,11 @@ class TranslatorEN : TranslatorFactory() {
             AllTexts.Language -> return("Language")
             AllTexts.English -> return("English")
             AllTexts.French -> return("French")
+            AllTexts.Portfolio_Deleted -> return("Portfolio deleted")
+            AllTexts.Portfolio_Delete -> return("Portfolio delete")
+            AllTexts.Are_You_Sure -> return("Are you sure ?")
+            AllTexts.Stock_Deleted -> return("Stock deleted")
+            AllTexts.Stock_Delete -> return("Stock delete")
             else -> return "LABEL KO: "+toTranslate
         }
     }
