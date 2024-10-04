@@ -15,5 +15,6 @@ enum class MainZoneScreenToDisplay {
     ViewStockHistory,
     ViewStockHistoryGraph,
     ViewPortfolioEvolutionReal,
-    Settings
+    Settings,
+    ViewPortfolioData
 }

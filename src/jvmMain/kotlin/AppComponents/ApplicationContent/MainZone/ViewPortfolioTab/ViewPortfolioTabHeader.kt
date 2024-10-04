@@ -84,6 +84,11 @@ fun ViewPortfolioTabHeader(modifier: Modifier = Modifier) {
                 Text(Translator.Translate(applicationState.language, AllTexts.Portfolio))
             }
             Button(onClick = {
+                MainZoneStateUtil.setMainZoneStateValue(mainZoneState.copy(mainZoneScreenToDisplay = MainZoneScreenToDisplay.ViewPortfolioData))
+            }) {
+                Text(Translator.Translate(applicationState.language, AllTexts.Data))
+            }
+            Button(onClick = {
                 MainZoneStateUtil.setMainZoneStateValue(mainZoneState.copy(mainZoneScreenToDisplay = MainZoneScreenToDisplay.ViewPortfolioEvolution))
             }) {
                 Text(Translator.Translate(applicationState.language, AllTexts.Evolution))

@@ -116,6 +116,9 @@ class TranslatorFR : TranslatorFactory() {
             AllTexts.Are_You_Sure -> return("Etes vous sur ?")
             AllTexts.Stock_Deleted -> return("Action supprimée")
             AllTexts.Stock_Delete -> return("Suppression d'action")
+            AllTexts.Data -> return("Données")
+            AllTexts.Total -> return("Total")
+            AllTexts.Taxes -> return("Taxes")
             else -> return "LABEL KO: " + toTranslate
         }
     }

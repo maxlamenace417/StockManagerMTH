@@ -116,6 +116,9 @@ class TranslatorEN : TranslatorFactory() {
             AllTexts.Are_You_Sure -> return("Are you sure ?")
             AllTexts.Stock_Deleted -> return("Stock deleted")
             AllTexts.Stock_Delete -> return("Stock delete")
+            AllTexts.Data -> return("Data")
+            AllTexts.Total -> return("Total")
+            AllTexts.Taxes -> return("Taxes")
             else -> return "LABEL KO: "+toTranslate
         }
     }

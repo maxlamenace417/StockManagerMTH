@@ -112,5 +112,8 @@ enum class AllTexts {
     Portfolio_Delete,
     Are_You_Sure,
     Stock_Deleted,
-    Stock_Delete
+    Stock_Delete,
+    Data,
+    Total,
+    Taxes
 }

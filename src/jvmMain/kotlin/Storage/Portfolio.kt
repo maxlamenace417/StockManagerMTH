@@ -24,4 +24,20 @@ class Portfolio(var name: String = "", var stocks: MutableList<Stock> = mutableL
         }
         return res
     }
+
+    fun getTotalDividend():Double{
+        var res = 0.0
+        for (i in 0..stocks.size - 1) {
+            res = res + stocks[i].getTotalDividend()
+        }
+        return res
+    }
+
+    fun getTotalTaxes(): Double {
+        var res = 0.0
+        for (i in 0..stocks.size - 1) {
+            res = res + stocks[i].getTotalTaxes()
+        }
+        return res
+    }
 }
