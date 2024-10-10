@@ -98,6 +98,16 @@ fun ViewPortfolioTabHeader(modifier: Modifier = Modifier) {
             }) {
                 Text(Translator.Translate(applicationState.language, AllTexts.Evolution_Real))
             }
+            Button(onClick = {
+                MainZoneStateUtil.setMainZoneStateValue(mainZoneState.copy(mainZoneScreenToDisplay = MainZoneScreenToDisplay.ViewPortfolioHistory))
+            }) {
+                Text(Translator.Translate(applicationState.language, AllTexts.History))
+            }
+            Button(onClick = {
+                MainZoneStateUtil.setMainZoneStateValue(mainZoneState.copy(mainZoneScreenToDisplay = MainZoneScreenToDisplay.ViewPortfolioHistoryGraph))
+            }) {
+                Text(Translator.Translate(applicationState.language, AllTexts.Graphics))
+            }
         }
     }
 }

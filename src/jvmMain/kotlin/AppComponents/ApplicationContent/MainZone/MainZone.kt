@@ -10,10 +10,7 @@ import AppComponents.ApplicationContent.MainZone.EmptyViewTab.EmptyView
 import AppComponents.ApplicationContent.MainZone.NewProjectTab.NewProjectTab
 import AppComponents.ApplicationContent.MainZone.PortfolioTab.EditPortfolioTab
 import AppComponents.ApplicationContent.MainZone.SettingsTab.SettingsTab
-import AppComponents.ApplicationContent.MainZone.ViewPortfolioTab.ViewPortfolioTab
-import AppComponents.ApplicationContent.MainZone.ViewPortfolioTab.ViewPortfolioTabData
-import AppComponents.ApplicationContent.MainZone.ViewPortfolioTab.ViewPortfolioTabHistogram
-import AppComponents.ApplicationContent.MainZone.ViewPortfolioTab.ViewPortfolioTabHistogramReal
+import AppComponents.ApplicationContent.MainZone.ViewPortfolioTab.*
 import AppComponents.ApplicationContent.MainZone.ViewProjectTab.ViewProjectTab
 import AppComponents.ApplicationContent.MainZone.ViewStockTab.ViewStockTab
 import AppComponents.ApplicationContent.MainZone.ViewStockTab.ViewStockTabHistory
@@ -71,6 +68,12 @@ fun MainZone(modifier: Modifier = Modifier){
         }
         MainZoneScreenToDisplay.ViewPortfolioData -> {
             ViewPortfolioTabData(modifier)
+        }
+        MainZoneScreenToDisplay.ViewPortfolioHistory -> {
+            ViewPortfolioTabHistory(modifier)
+        }
+        MainZoneScreenToDisplay.ViewPortfolioHistoryGraph -> {
+            ViewPortfolioTabHistoryGraph(modifier)
         }
         else -> {
             EmptyView(modifier)
