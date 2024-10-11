@@ -53,7 +53,7 @@ fun ViewPortfolioTabHistoryBar(modifier: Modifier = Modifier) {
                         text = Translator.Translate(
                             applicationState.language,
                             AllTexts.CSV_Loaded
-                        ) + ": " + portfolio.name + " ==> " + stock.name + " (" + stock.ticker + ")"
+                        )
                     )
                 )
             } else {
@@ -62,7 +62,7 @@ fun ViewPortfolioTabHistoryBar(modifier: Modifier = Modifier) {
                         text = Translator.Translate(
                             applicationState.language,
                             AllTexts.No_CSV
-                        ) + ": " + portfolio.name + " ==> " + stock.name + " (" + stock.ticker + ")"
+                        )
                     )
                 )
             }
@@ -90,7 +90,7 @@ fun ViewPortfolioTabHistoryBar(modifier: Modifier = Modifier) {
                             text = Translator.Translate(
                                 applicationState.language,
                                 AllTexts.CSV_Loaded
-                            ) + ": " + portfolio.name + " ==> " + stock.name + " (" + stock.ticker + ")"
+                            )
                         )
                     )
                 } else {
@@ -100,7 +100,7 @@ fun ViewPortfolioTabHistoryBar(modifier: Modifier = Modifier) {
                             text = Translator.Translate(
                                 applicationState.language,
                                 AllTexts.No_CSV
-                            ) + ": " + portfolio.name + " ==> " + stock.name + " (" + stock.ticker + ")"
+                            )
                         )
                     )
                 }

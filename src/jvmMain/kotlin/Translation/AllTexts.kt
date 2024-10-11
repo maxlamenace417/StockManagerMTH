@@ -115,5 +115,6 @@ enum class AllTexts {
     Stock_Delete,
     Data,
     Total,
-    Taxes
+    Taxes,
+    VerticalScrollTip
 }

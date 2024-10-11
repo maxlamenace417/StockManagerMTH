@@ -119,6 +119,7 @@ class TranslatorEN : TranslatorFactory() {
             AllTexts.Data -> return("Data")
             AllTexts.Total -> return("Total")
             AllTexts.Taxes -> return("Taxes")
+            AllTexts.VerticalScrollTip -> return("Mousewheel => Vertical Scroll")
             else -> return "LABEL KO: "+toTranslate
         }
     }
